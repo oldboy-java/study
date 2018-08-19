@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<bean id="b" class="com.liuli.bean.B" scope="prototype" lazy-init="default">
+		<property name="name" value="lisi"></property>
+	</bean>
+	
+	<!-- <bean id="a" class="com.liuli.bean.A"  lazy-init="default"   scope="prototype" init-method="init" destroy-method="destory">
+		<property name="B" ref="b"></property>
+	</bean> -->
+	
+	
+</beans>

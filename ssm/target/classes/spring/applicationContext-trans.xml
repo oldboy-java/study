@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			 <!-- 主库执行操作，事务传播行为定义为默认行为 -->  
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			
+			<!--定义查询方法都是只读的 -->  
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	 <!-- 定义数据源切面-->   
+    <bean id="dataSourceAspect" class="com.liuli.ssm.util.datasource.DataSourceAspect" />   
+    
+	<aop:config>
+		
+		<!-- 定义切入点，所有的service的所有方法 -->  
+        <aop:pointcut id="txPointcut" expression="execution(* com.liuli.ssm.service.*.*(..))" />  
+        
+        <!-- 事务通知 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+			 
+		 <!-- 将定义数据源切面应用到自定义的切面处理器上，-9999保证该切面优先级最高执行 --> 
+		 <!-- spring aop 实现动态数据源选择，但有时存在数据源切换不及时，导致数据查询错误,需调整aop 执行排序级别order --> 
+        <aop:aspect ref="dataSourceAspect" order="-9999">  
+            <aop:before method="before" pointcut-ref="txPointcut" />  
+        </aop:aspect>  	 
+	</aop:config>
+	
+	 
+</beans>

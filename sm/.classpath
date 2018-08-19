@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-spring-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="lib/spring-aop-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-beans-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-context-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-expression-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-jdbc-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-test-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-tx-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-3.4.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

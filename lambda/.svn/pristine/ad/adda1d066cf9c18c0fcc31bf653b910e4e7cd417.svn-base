@@ -1,0 +1,146 @@
+package lambda;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Lambda {
+
+	public static void main(String[] args) {
+		//lambdaImplRunnable();
+		//ListComparator();
+	//	lambdaInListComparator();
+		//lambdaForeachList();
+	//	lambdaFilter();
+		lambdaMap();
+	}
+	
+	
+	/***
+	 * lambda表达式实现Runnable
+	 */
+	public static void  lambdaImplRunnable() {
+		new Thread(()->{System.out.println("lambda in Java8");}).start();
+	}
+
+	
+	/***
+	 * Lambda表达式实现排序
+	 */
+	public static void lambdaInListComparator() {
+		List<User> users = new ArrayList<User>();
+		
+		User u1 = new User();
+		u1.setAge(28);
+		u1.setName("张三");
+		
+		User u2 = new User();
+		u2.setAge(21);
+		u2.setName("李四");
+		users.add(u1);
+		users.add(u2);
+		
+		users.sort((o1,o2)->{return o1.getAge()-o2.getAge();});
+		
+		System.out.println(users);
+	}
+	
+	
+	public static void ListComparator() {
+		List<User> users = new ArrayList<User>();
+		
+		User u1 = new User();
+		u1.setAge(28);
+		u1.setName("张三");
+		
+		User u2 = new User();
+		u2.setAge(21);
+		u2.setName("李四");
+		users.add(u1);
+		users.add(u2);
+		
+		Collections.sort(users,new Comparator<User>() {
+
+			@Override
+			public int compare(User o1, User o2) {
+				return o1.getAge()-o2.getAge();
+			}
+		});
+		
+		System.err.println(users);
+	}
+	
+	
+	
+	/**
+	 * 使用lambda表达式对列表进行迭代【forEach使用】
+	 */
+	public static void lambdaForeachList() {
+		List<User> users = new ArrayList<User>();
+		
+		User u1 = new User();
+		u1.setAge(28);
+		u1.setName("张三");
+		
+		User u2 = new User();
+		u2.setAge(21);
+		u2.setName("李四");
+		users.add(u1);
+		users.add(u2);
+		
+		//对所有用户年龄加10
+		users.forEach(u->{
+			u.setAge(u.getAge()+10);
+		});
+		
+		System.out.println(users);
+	}
+	
+	
+	/***
+	 * 过滤集合：集合中元素>10【filter】
+	 */
+	public static void lambdaFilter() {
+		List<Integer> numbers = Arrays.asList(23,1,34,9,8,13);
+		
+		//过滤后通过collect生成新的集合
+		List<Integer> newNumbers = numbers.stream().filter(n-> n >10).collect(Collectors.toList());
+		
+		System.err.println(newNumbers);
+	}
+	
+	/***
+	 * 对列表的每个元素应用函数【map】
+	 */
+	public static void lambdaMap() {
+		List<String> contryies = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "U.K.","Canada");
+		contryies.stream().map(x->x.toUpperCase()).collect(Collectors.toList()).forEach(System.out::println);
+	}
+	
+	
+	
+	static class User {
+		private String name;
+		private Integer age;
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public Integer getAge() {
+			return age;
+		}
+		public void setAge(Integer age) {
+			this.age = age;
+		}
+		@Override
+		public String toString() {
+			return "User [name=" + name + ", age=" + age + "]";
+		}
+		
+	}
+}

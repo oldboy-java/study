@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: dev  ##设置使用开发环境配置：application-dev.yml
+    
+  
+  
+  

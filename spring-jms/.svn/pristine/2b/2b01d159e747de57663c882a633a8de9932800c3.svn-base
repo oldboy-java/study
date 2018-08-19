@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- 引入公共配置 -->
+	<import resource="common.xml"/>
+		
+	<!-- 配置消息监听器 -->
+	<bean id="consumerMessageListener" class="com.imooc.jms.consumer.ConsumerMessageListener"></bean>
+	
+	<!-- 配置消息监听容器 -->
+	<bean id="jmscontainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		
+		<!-- <property name="destination" ref="queueDestination"></property> -->
+		
+		<property name="destination" ref="topicDestination"></property>
+		
+		<property name="messageListener" ref="consumerMessageListener"></property>
+	</bean>
+</beans>

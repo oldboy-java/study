@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuli.sm.mappers.UserMapper">
+	
+	<!-- useGeneratedKeys="true" -> 获取数据库自增主键        keyProperty="userId"   -> 赋值到userId属性值中 -->
+	 <insert id="addUser"  parameterType="User" useGeneratedKeys="true" keyProperty="userId" flushCache="false">
+	 	insert into user (name,age) values(#{name},#{age})
+	 </insert>
+	 
+	 
+	 <insert id="batchAddUser">
+	 	insert into user (name,age) values 
+	 	<!-- 
+	 	使用foreach进行语句拼接：
+	 	collection="list"  参数是List时collection固定设置为"list"
+	 	item="user"   循环迭代时的item项，这里设置为user
+	 	index="idx"   迭代集合的索引位置
+	 	open=""     每次迭代的sql语句的开始符
+	 	close=""    每次迭代的sql语句的结束符
+	 	separator="," 迭代的分隔符
+	 	其中<foreach>标签中的语句时需要迭代的语句
+	 	
+	 	批量插入语句sql为：insert into user (name,age) values (?,?),(?,?)...(?,?)
+	 	
+	 	所以不需要迭代开始符，不需要迭代结束符，将其设置为空，设置一个分隔符逗号即可
+	 	
+	 	 -->
+	 	<foreach collection="list" item="user" index="idx" open="" close="" separator=",">
+	 		(#{user.name},#{user.age})
+	 	</foreach>
+	 </insert>
+	 
+	 
+	 <insert id="batchAddUser2">
+	 	insert into user (name,age) values 
+	 	<!-- 
+	 	使用foreach进行语句拼接：
+	 	collection="list"  参数是List时collection固定设置为"list"
+	 	item="user"   循环迭代时的item项，这里设置为user
+	 	index="idx"   迭代集合的索引位置
+	 	open=""     每次迭代的sql语句的开始符
+	 	close=""    每次迭代的sql语句的结束符
+	 	separator="," 迭代的分隔符
+	 	其中<foreach>标签中的语句时需要迭代的语句
+	 	
+	 	批量插入语句sql为：insert into user (name,age) values (?,?),(?,?)...(?,?)
+	 	
+	 	所以不需要迭代开始符，不需要迭代结束符，将其设置为空，设置一个分隔符逗号即可
+	 	
+	 	 -->
+	 	<foreach collection="array" item="user" index="idx" open="" close="" separator=",">
+	 		(#{user.name},#{user.age})
+	 	</foreach>
+	 </insert>
+	 
+	 
+	 <delete id="deleteUserById" parameterType="int" >
+	 	delete from user where user_id=#{userId}
+	 </delete>
+	 
+	 <update id="updateUser" parameterType="User">
+	 	update user set name=#{name},age=#{age} where user_id=#{userId}
+	 </update>
+	 
+	 <!-- 查询单个：列名与Pojo中的属性名一一对应，进行赋值  -->
+	 <select id="getUserById" parameterType="int" resultType="User">
+	 	select user_id as userId,name,age from user where user_id=#{userId}
+	 </select>
+	 
+	 <!-- 查询单个：查询结果，封装成hashMap返回 -->
+	 <select id="getUser2ById" parameterType="int" resultType="hashmap">
+	 	select user_id,name,age from user where user_id=#{userId}
+	 </select>
+	 
+	 
+	 <!-- 查询所有用户：   列名与属性值相同赋值，每条记录时User对象 -->
+	 <select id="getAllUsers" resultType="User">
+	 	select user_id as userId,name,age from user
+	 </select>
+	 
+	 <!-- 查询所有用户：使用resultMap进行关系映射 -->
+	  <select id="getAllUsers2" resultMap="userResultMap">
+	 	select * from user
+	 </select>
+	 
+	 <!-- 查询所有用户：每条记录时一个hashmap -->
+	  <select id="getAllUsers3" resultType="hashmap">
+	 	select user_id,name,age from user
+	 </select>
+	 
+	 <resultMap type="User" id="userResultMap">
+	 	<!-- id标签映射主键 -->
+	 	<id column="user_id" property="userId"/>
+	 	
+	 	<!-- result标签映射其他属性 -->
+	 	<result column="age" property="age"/>
+	 	<result column="name" property="name"/>
+	 </resultMap>
+	 
+	  <!-- 查询所有用户数 -->
+	  <select id="getAllUserCount" resultType="int">
+	 	select count(1) from user
+	 </select>
+	 
+	  <!-- 
+	  	根据姓名和年龄查询 ：
+	  	多参数条件查询,参数传递使用@Param给每个参数其名字，然后在查询语句中使用#{别名}引用。
+	  	User getUserByNameAge(@Param("name2")String name ,@Param("age2")int age);
+	  -->
+	 <select id="getUserByNameAge"  resultType="User">
+	 	select user_id as userId,name,age from user where name=#{name2} and age=#{age2}
+	 </select>
+	 
+	 
+	 <!--
+	 	使用map封装多个查询参数 。查询语句通过#{key}进行引用，如#{name}
+	 	Map<String,Object> conditions = new  HashMap<String,Object>();
+		conditions.put("name", "刘董事长");
+		conditions.put("age", 52);
+	 -->
+	  <select id="getUserByNameAge2" resultType="User">
+	 	select user_id as userId,name,age from user where name=#{name} and age=#{age}
+	 </select>
+	 
+	 
+	  <!-- 查询所有用户数 : like查询 注意写法 "%"#{name}"%",这里的双引号不能换成单引号-->
+	  <select id="getAllUserCountByName" parameterType="string" resultType="int">
+	 	select count(1) from user where name like "%"#{name}"%"
+	 </select>
+</mapper>

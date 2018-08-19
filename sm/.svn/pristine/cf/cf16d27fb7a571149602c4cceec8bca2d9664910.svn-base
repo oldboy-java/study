@@ -1,0 +1,7 @@
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://123.57.18.177:38141/test?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false
+name=root
+password=hVuJw4Dwf3PRlIuZW#
+maxActive=500
+MaxWait=1000
+maxIdle=50

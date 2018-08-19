@@ -1,0 +1,92 @@
+package com.imooc.girl.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.imooc.girl.dao.GirlRespository;
+import com.imooc.girl.pojo.Girl;
+
+@RestController
+public class GirlController {
+
+	@Autowired
+	private GirlRespository girlRespository;
+	
+	/**
+	 * 查询女生列表
+	 * @return
+	 */
+	@GetMapping(value="girls")
+	public List<Girl> girlList(){
+		return girlRespository.findAll();
+	}
+	
+	/**
+	 * 添加女生
+	 * @param age
+	 * @param cupSize
+	 * @return
+	 */
+	@PostMapping(value="girls")
+	public Girl addGirl(@RequestParam("age") Integer age,@RequestParam("cupSize") String cupSize){
+		Girl girl = new Girl();
+		girl.setAge(age);
+		girl.setCupSize(cupSize);
+		return girlRespository.save(girl);
+	}
+	
+	
+	/***
+	 * 更新女生
+	 * @param age
+	 * @param cupSize
+	 * @param id
+	 * @return
+	 */
+	@PutMapping(value="girls/{id}")
+	public Girl updateGirl(@RequestParam("age") Integer age,@RequestParam("cupSize") String cupSize,@PathVariable("id")Integer id) {
+		Girl girl = new Girl();
+		girl.setId(id);
+		girl.setAge(age);
+		girl.setCupSize(cupSize);
+		return girlRespository.save(girl);
+	}
+	
+	
+	/**
+	 * 查询
+	 * @param id
+	 * @return
+	 */
+	@GetMapping(value="girls/{id}")
+	public Girl findGirl(@PathVariable("id")Integer id) {
+		return girlRespository.findOne(id);
+	}
+	
+	/**
+	 * 删除
+	 * @param id
+	 */
+	@DeleteMapping(value="girls/{id}")
+	public void deleteGirl(@PathVariable("id")Integer id) {
+		girlRespository.delete(id);
+	}
+	
+	
+	/**
+	 * 根据年龄查询女生列表
+	 * @return
+	 */
+	@GetMapping(value="girls/age/{age}")
+	public List<Girl> girlListByAge(@PathVariable("age")Integer age){
+		return girlRespository.findByAge(age);
+	}
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> 
+
+	<!-- 将多个配置文件读取到容器中，交给Spring管理 -->  
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+           <list> 
+              <value>classpath:config.properties</value>
+            </list>  
+        </property>  
+    </bean>
+    
+    <!-- 扫描所有注解 -->
+    <context:component-scan base-package="com.liuli.event"></context:component-scan>
+	
+	<!-- 导入其他配置文件 -->	
+	<import resource="classpath:spring/spring-datasource.xml" />
+	<import resource="classpath:spring/spring-mybatis.xml" />
+	<import resource="classpath:spring/spring-transaction.xml" />
+		<import resource="classpath:spring/spring-event.xml" />
+</beans>

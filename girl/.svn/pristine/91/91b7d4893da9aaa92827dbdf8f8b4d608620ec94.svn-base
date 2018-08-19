@@ -1,0 +1,13 @@
+启动springboot应用方法
+
+1、直接运行GirlApplication.java这个类中的main方法
+
+2、进入到D:\Program Files\workspace\girl目录下，使用命令：
+   mvn spring-boot:run
+   
+3、使用jar命令运行
+   第一步：进入到D:\Program Files\workspace\girl,使用mvn install安装
+   第二步：进入D:\Program Files\workspace\girl\target下，使用命令
+   java -jar girl-0.0.1-SNAPSHOT.jar  --spring.profiles.active=prod
+   
+  其中--spring.profiles.active=prod指定使用哪种启动配置文件

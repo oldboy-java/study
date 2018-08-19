@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> 
+
+
+	<!--异步事件处理 -->
+	<bean id="applicationEventMulticaster"  class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+		<!-- 注入执行器就实现了异步调用（缺点：配置是全局的，要么全部异步，要么全部同步（删除此属性为同步）） -->
+		<property name="taskExecutor" ref="coreTaskExecutor"></property>
+	</bean>
+
+    <!-- 任务执行器 -->
+    <bean id="coreTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    	<property name="corePoolSize" value="10"></property>
+    	<property name="maxPoolSize" value="20"></property>
+    	<property name="queueCapacity" value="25"></property>
+    	<property name="threadNamePrefix" value="liuli-coreTaskExecutor"></property>
+    </bean>
+    
+	
+</beans>
