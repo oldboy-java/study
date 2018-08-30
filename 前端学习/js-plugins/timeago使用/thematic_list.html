@@ -1,0 +1,74 @@
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css"  rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	
+	<!--timeago插件，需要jquery支持 -->
+	<script src="js/jquery.timeago.js" type="text/javascript"></script>
+	<script src="js/jquery.timeago.zh-CN.js" type="text/javascript"></script>
+	
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">专题列表</div>
+
+      <!-- Table -->
+      <table class="table">
+        <tr id="tr-header">
+          <th>专题名称</th>
+          <th>总访问量</th>
+          <th>添加时间</th>
+        </tr>
+
+
+      </table>
+    </div>
+  </body>
+
+<script>
+    $(function(){
+      getThmaits();
+    });
+
+  function  getThmaits() {
+      $.ajax({
+        url:"http://127.0.0.1:8080/gnss/thematic/schThematic.action",
+        type:"GET",
+        dataType:"json",
+        success:function (result) {
+          console.info(result);
+          var list = result.data.list;
+          var trs='';
+          for(var i = 0 ;i < list.length;i++) {
+            trs+='<tr><td>'+list[i].thematicName+'</td>';
+            trs+='<td>'+list[i].numberOfArticles+'</td>';
+            trs+='<td>'+$.timeago(list[i].creationTime,'zh-CN')+'</td></tr>';
+			
+			//$.timeago(list[i].creationTime,'zh-CN') :时间转换
+          }
+          $(trs).insertAfter($('#tr-header'));
+        }
+      })
+  }
+
+</script>
+</html>
