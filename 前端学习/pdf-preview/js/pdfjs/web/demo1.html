@@ -1,0 +1,70 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.lightbox{
+			position: fixed;
+		    top: 0px;
+		    left: 0px;
+		    height: 100%;
+		    width: 100%;
+		    z-index: 7;
+		    opacity: 0.3;
+		    display: block;
+		    background-color: rgb(0, 0, 0);
+		}
+		.pop{
+			position: absolute;
+		    left: 50%;
+			width: 894px;
+		    margin-left: -447px;
+		    z-index: 9;
+		}
+	</style>
+	<script src="../build/pdf.js"></script>
+	<script type="text/javascript">
+		function showPdf(){
+			var container = document.getElementById("container");
+			container.style.display = "block";
+			var url = 'a.pdf';
+			PDFJS.workerSrc = '../build/pdf.worker.js';
+			PDFJS.getDocument(url).then(function getPdfHelloWorld(pdf) {
+			    //
+			    // Fetch the first page
+			    //
+			    pdf.getPage(1).then(function getPageHelloWorld(page) {
+			      var scale = 1.5;
+			      var viewport = page.getViewport(scale);
+
+			      //
+			      // Prepare canvas using PDF page dimensions
+			      //
+			      var canvas = document.getElementById('the-canvas');
+			      var context = canvas.getContext('2d');
+			      canvas.height = viewport.height;
+			      canvas.width = viewport.width;
+
+			      //
+			      // Render PDF page into canvas context
+			      //
+			      var renderContext = {
+			        canvasContext: context,
+			        viewport: viewport
+			      };
+			      page.render(renderContext);
+			    });
+		  });
+		}
+	</script>
+</head>
+<body>
+	<h1><a href="javascript:void(0)" target="_blank" onclick="showPdf()">显示pdf文档</a></h1>
+	<div id="container" style="display: none;">
+		<div class="lightbox"></div>
+		<div id="pop" class="pop">
+			<canvas id="the-canvas"></canvas>
+		</div>
+	</div>
+</body>
+</html>

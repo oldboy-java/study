@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PDF.js实现远程PDF文件在线预览（后台需Nginx设置）</title>
+	<script src="js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+	<div class="details-body"></div>
+	
+<script>
+	$(function(){
+		$(".details-body").append("<iframe src='js/pdfjs/web/viewer.html?file=http://1.203.80.75/file/rcm/cdb60a6801d744d79b62e161df8a81db.pdf' id='iframe' name='iframe' style='width:100%;' frameborder='0' scrolling='no' height='730px' ></iframe> ");
+	})
+</script>
+</body>
