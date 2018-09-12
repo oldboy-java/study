@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>通过</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>未通过</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>待定</label>
+	</col>
+	<col>
+		<id>4</id>
+		<pid></pid>
+		<label>爽约</label>
+	</col>
+</dictionary>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GB2312"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>主任</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>副主任</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>秘书</label>
+	</col>
+	<col>
+		<id>4</id>
+		<pid></pid>
+		<label>无</label>
+	</col>
+	
+</dictionary>

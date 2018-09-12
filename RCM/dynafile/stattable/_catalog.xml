@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- <data>
+    <name>资源下载统计</name>
+    <key>download</key>
+  </data> -->
+  <data>
+    <name>资源评论</name>
+    <key>comment</key>
+  </data>
+  <data>
+    <name>资源审核</name>
+    <key>audit</key>
+  </data>
+  <data>
+    <name>教职工资源统计</name>
+    <key>staff</key>
+  </data>
+
+</root>
+

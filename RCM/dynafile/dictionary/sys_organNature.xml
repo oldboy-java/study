@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>机构</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>部门</label>
+	</col>
+</dictionary>

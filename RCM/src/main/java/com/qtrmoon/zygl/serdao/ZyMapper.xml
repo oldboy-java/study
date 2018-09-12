@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.ZyMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Zy" id="ZyResult">
+		<id property="id" column="ID" />
+		<result property="zymc" column="ZYMC" />
+		<result property="ssxkid" column="SSXKID" />
+		<result property="wjgs" column="WJGS" />
+		<result property="scrid" column="SCRID" />
+		<result property="zyzt" column="ZYZT" />
+		<result property="zydz" column="ZYDZ" />
+		<result property="zyly" column="ZYLY" />
+		<result property="zz" column="ZZ" />
+		<result property="scrq" column="SCRQ" />
+		<result property="llcs" column="LLCS" />
+		<result property="xzcs" column="XZCS" />
+		<result property="sccs" column="SCCS" />
+		<result property="plcs" column="PLCS" />
+		<result property="xxid" column="XXID" />
+		<result property="wjdx" column="WJDX" />
+		<result property="shzt" column="SHZT" />
+		<result property="fmlj" column="FMLJ" />
+		<result property="hzm" column="HZM" />
+		<result property="wjmc" column="WJMC" />
+		<result property="zhcg" column="ZHCG" />
+		<result property="scr" column="SCR" />
+		<result property="dzcs" column="DZCS" />
+		<result property="zydx" column="ZYDX" />
+		<result property="xzqx" column="XZQX" />
+		<result property="xzjf" column="XZJF" />
+		<result property="tag" column="TAG" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schZy" resultMap="ZyResult">
+		SELECT * FROM jxzy_zy AS t where true
+		<if test="zymc!=null and zymc !=''"> AND ( zymc like #{zymc} or tag like #{zymc})</if>
+		<if test="ssxkid!=null and ssxkid !=''"> AND ssxkid like #{ssxkid}</if>
+		<if test="wjgs!=null and wjgs !=''"> AND wjgs like #{wjgs}</if>
+		<if test="scrid!=null and scrid !=''"> AND scrid like #{scrid}</if>
+		<if test="zyzt!=null and zyzt !=''"> AND zyzt like #{zyzt}</if>
+		<if test="zydz!=null and zydz !=''"> AND zydz like #{zydz}</if>
+		<if test="zyly!=null and zyly !=''"> AND zyly like #{zyly}</if>
+		<if test="zz!=null and zz !=''"> AND zz like #{zz}</if>
+		<if test="scrqBeg!=null and scrqBeg!=''"> AND scrq &gt;= #{scrqBegDate}</if>
+		<if test="scrqEnd!=null and scrqEnd!=''"> AND scrq &lt;= #{scrqEndDate}</if>
+		<if test="llcs!=null and llcs !=''"> AND llcs like #{llcs}</if>
+		<if test="xzcs!=null and xzcs !=''"> AND xzcs like #{xzcs}</if>
+		<if test="sccs!=null and sccs !=''"> AND sccs like #{sccs}</if>
+		<if test="plcs!=null and plcs !=''"> AND plcs like #{plcs}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="wjdx!=null and wjdx !=''"> AND wjdx like #{wjdx}</if>
+		<if test="shzt!=null and shzt !=''"> AND shzt like #{shzt}</if>
+		<if test="fmlj!=null and fmlj !=''"> AND fmlj like #{fmlj}</if>
+		<if test="hzm!=null and hzm !=''"> AND hzm like #{hzm}</if>
+		<if test="wjmc!=null and wjmc !=''"> AND wjmc like #{wjmc}</if>
+		<if test="dzcs!=null and dzcs !=''"> AND dzcs like #{dzcs}</if>
+		<if test="scr!=null and scr !=''"> AND scr like #{scr}</if>
+		<if test="zhcg!=null"> AND zhcg = #{zhcg}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 偏好条件查询 -->
+	<select id="schphZy" resultMap="ZyResult">
+		SELECT * FROM jxzy_zy 
+		<if test="array != null">
+			<where>
+			SSXKID IN
+			<foreach item="ssxkid" collection="array" open="(" separator="," close=")"> #{ssxkid} </foreach>
+			</where>
+		</if>
+		and shzt = 2 and zyzt = 3
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schZyById" parameterType="int" resultMap="ZyResult">
+		SELECT *
+		FROM jxzy_zy AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addZy" parameterType="com.qtrmoon.zygl.pojo.Zy"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zy(ID,ZYMC,SSXKID,WJGS,SCRID,ZYZT,ZYDZ,ZYLY,ZZ,SCRQ,XXID,WJDX,SHZT,FMLJ,HZM,WJMC,SCR,ZYDX,XZQX,TAG)
+		VALUES(#{id},#{zymc},#{ssxkid},#{wjgs},#{scrid},#{zyzt},#{zydz},#{zyly},#{zz},#{scrq},#{xxid},#{wjdx},1,#{fmlj},#{hzm},#{wjmc},#{scr},#{zydx},#{xzqx},#{tag})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updZy" parameterType="com.qtrmoon.zygl.pojo.Zy">
+		UPDATE jxzy_zy SET
+		ZYMC=#{zymc},SSXKID=#{ssxkid},WJGS=#{wjgs},SCRID=#{scrid},ZYDZ=#{zydz},ZYLY=#{zyly},ZZ=#{zz},SCRQ=#{scrq},XXID=#{xxid},WJDX=#{wjdx},FMLJ=#{fmlj},HZM=#{hzm},WJMC=#{wjmc},SCR=#{scr},ZYDX=#{zydx}
+		,TAG=#{tag},ZYZT=#{zyzt} WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delZy" parameterType="int">
+		DELETE FROM jxzy_zy
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delZys">
+		DELETE FROM jxzy_zy
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<!-- 批量审核通过 -->
+	<update id="shZysTg">
+		UPDATE  jxzy_zy SET SHZT=2
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</update>
+	
+	<!-- 批量审核不通过 -->
+	<update id="shZysBtg">
+		UPDATE  jxzy_zy SET SHZT=3
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</update>
+	
+	
+	<!-- 更新转换成功 -->
+	<update id="updZyConvertOk" parameterType="java.util.List">
+		UPDATE  jxzy_zy SET ZHCG=1 
+		<if test="list != null">
+			<where>
+				zydz IN
+				<foreach item="item" collection="list" open="(" separator="," close=")"> #{item} </foreach>
+			</where>
+		</if>
+	</update>
+	
+	<!-- 更新浏览次数 -->
+	<update id="updLlcs" parameterType="int">
+	    UPDATE jxzy_zy
+	    SET
+	    LLCS =(
+	    select CASE
+	    when (select a.LLCS from (select LLCS from jxzy_zy where
+	    id=#{id} )a ) is null then 1
+	    else (select a.LLCS from (select LLCS from jxzy_zy where
+	    id=#{id} )a )+1
+	    end
+	    from dual
+	    )
+	    WHERE ID=#{id}
+    </update>
+    
+    <!-- 更新下载次数 -->
+	<update id="updXzcs" parameterType="int">
+	    UPDATE jxzy_zy
+	    SET
+	    XZCS =(
+	    select CASE
+	    when (select a.XZCS from (select XZCS from jxzy_zy where
+	    id=#{id} )a ) is null then 1
+	    else (select a.XZCS from (select XZCS from jxzy_zy where
+	    id=#{id} )a )+1
+	    end
+	    from dual
+	    )
+	    WHERE ID=#{id}
+    </update>
+    
+    <!-- 更新收藏次数 -->
+	<update id="updSccs" parameterType="map">
+	    UPDATE jxzy_zy SET SCCS = SCCS+#{num}  WHERE ID=#{id}
+    </update>
+    
+    <!-- 更新评论次数 -->
+	<update id="updPlcs" parameterType="int">
+	    UPDATE jxzy_zy
+	    SET
+	    PLCS =(
+	    select CASE
+	    when (select a.PLCS from (select PLCS from jxzy_zy where
+	    id=#{id} )a ) is null then 1
+	    else (select a.PLCS from (select PLCS from jxzy_zy where
+	    id=#{id} )a )+1
+	    end
+	    from dual
+	    )
+	    WHERE ID=#{id}
+    </update>
+    
+    <!-- 更新点赞次数 -->
+	<update id="updDzcs" parameterType="map">
+	     UPDATE jxzy_zy SET DZCS = DZCS+#{num}  WHERE ID=#{id}
+    </update>
+    
+    <!-- 查询上传排行 -->
+	<select id="schScph"  resultType="java.util.HashMap">
+		SELECT z.SCR,COUNT(*) as SCS FROM jxzy_zy z WHERE z.SHZT=2 AND z.ZYZT=3 
+		GROUP BY z.SCRID ORDER BY SCS DESC
+	</select>
+	
+	
+	 <!-- 更新下载权限 -->
+	<update id="updateZyDownloadAuth" parameterType="map">
+	     UPDATE jxzy_zy SET XZQX = #{auth},XZJF=#{jf}  
+	     <if test="zyIds != null">
+			<where>
+				id IN
+				<foreach item="item" collection="zyIds" open="(" separator="," close=")"> #{item} </foreach>
+			</where>
+		</if>
+    </update>
+    
+    <!-- 统计资源审核 -->
+	<select id="schZysh"  resultType="hashmap">
+		SELECT ssxkid,shzt,COUNT(*) as amount FROM jxzy_zy WHERE true
+		<if test="ssxkid!=null and ssxkid !=''"> AND ssxkid like #{ssxkid}</if>
+		<if test="shzt!=null and shzt !=''"> AND shzt like #{shzt}</if>
+		GROUP BY SSXKID,SHZT
+	</select>
+	
+	<!-- 按类型统计资源大小、数量 -->
+	<select id="schZydxsl"  resultType="hashmap">
+		SELECT  ssxkid,COUNT(*) as amount,SUM(z.ZYDX) as scale FROM jxzy_zy z WHERE true
+		 AND z.SHZT=2 AND z.ZYZT=3  
+		<if test="ssxkid!=null and ssxkid !=''"> AND ssxkid like #{ssxkid}</if>
+		GROUP BY z.SSXKID
+	</select>
+	
+	<!-- 按上传人统计资源大小、数量 -->
+	<select id="schScrZydxsl"  resultType="hashmap">
+		SELECT  scr,COUNT(*) as amount,SUM(z.ZYDX) as scale FROM jxzy_zy z WHERE true 
+		and z.SHZT=2 AND z.ZYZT=3   
+		<if test="scr!=null and scr !=''"> AND scr like #{scr}</if>
+		GROUP BY z.SCRID
+	</select>
+</mapper>

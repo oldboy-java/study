@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.ZyplhfMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Zyplhf" id="ZyplhfResult">
+		<id property="id" column="ID" />
+		<result property="plid" column="PLID" />
+		<result property="hfnr" column="HFNR" />
+		<result property="hfrid" column="HFRID" />
+		<result property="hfrlx" column="HFRLX" />
+		<result property="hfrxm" column="HFRXM" />
+		<result property="hfsj" column="HFSJ" />
+		<result property="xxid" column="XXID" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schZyplhf" resultMap="ZyplhfResult">
+		SELECT * FROM jxzy_zyplhf AS t where true
+		<if test="plid!=null and plid !=''"> AND plid like #{plid}</if>
+		<if test="hfnr!=null and hfnr !=''"> AND hfnr like #{hfnr}</if>
+		<if test="hfrid!=null and hfrid !=''"> AND hfrid like #{hfrid}</if>
+		<if test="hfrlx!=null and hfrlx !=''"> AND hfrlx like #{hfrlx}</if>
+		<if test="hfrxm!=null and hfrxm !=''"> AND hfrxm like #{hfrxm}</if>
+		<if test="hfsjBeg!=null and hfsjBeg!=''"> AND hfsj &gt;= #{hfsjBegDate}</if>
+		<if test="hfsjEnd!=null and hfsjEnd!=''"> AND hfsj &lt;= #{hfsjEndDate}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schZyplhfById" parameterType="int" resultMap="ZyplhfResult">
+		SELECT *
+		FROM jxzy_zyplhf AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addZyplhf" parameterType="com.qtrmoon.zygl.pojo.Zyplhf"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zyplhf(ID,PLID,HFNR,HFRID,HFRLX,HFRXM,HFSJ,XXID)
+		VALUES(#{id},#{plid},#{hfnr},#{hfrid},#{hfrlx},#{hfrxm},#{hfsj},#{xxid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updZyplhf" parameterType="com.qtrmoon.zygl.pojo.Zyplhf">
+		UPDATE jxzy_zyplhf SET
+		ID=#{id},PLID=#{plid},HFNR=#{hfnr},HFRID=#{hfrid},HFRLX=#{hfrlx},HFRXM=#{hfrxm},HFSJ=#{hfsj},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delZyplhf" parameterType="int">
+		DELETE FROM jxzy_zyplhf
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delZyplhfs">
+		DELETE FROM jxzy_zyplhf
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogTables>
+	<description>字典维护字典组</description>
+	<editable>false</editable>
+	<table>
+		<id>DICT_DBTYPE</id>
+		<tablename>_DICTIONARY_DBTYPE.xml</tablename>
+		<tabledesc>数据库分类</tabledesc>
+		<root></root>
+		<style>L#X#N</style>
+		<pattern>2</pattern>
+	</table>
+	
+	<table>
+		<id>DICT_ENCODE</id>
+		<tablename>_DICTIONARY_ENCODE.xml</tablename>
+		<tabledesc>数据库编码</tabledesc>
+		<root></root>
+		<style>L#X#N</style>
+		<pattern>2</pattern>
+	</table>
+</catalogTables>

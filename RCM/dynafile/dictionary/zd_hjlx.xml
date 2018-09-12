@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 获奖类型 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>集体</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>个人综合</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>个人单项</label>
+	</col>
+</dictionary>

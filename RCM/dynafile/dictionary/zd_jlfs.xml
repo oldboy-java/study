@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 奖励方式 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>奖状</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>荣誉称号</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>奖金</label>
+	</col>
+	<col>
+		<id>4</id>
+		<pid></pid>
+		<label>实物</label>
+	</col>
+	<col>
+		<id>9</id>
+		<pid></pid>
+		<label>其他</label>
+	</col>
+</dictionary>

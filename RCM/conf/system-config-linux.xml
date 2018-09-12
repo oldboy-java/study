@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <projectName>RCM</projectName>
+  <projectInfo>RCM生成测试</projectInfo>
+   <workspace>/home/tomcat8-201801/webapps</workspace>
+  <operMode>icon</operMode>
+  <useDataAuthority>false</useDataAuthority>
+  <dataAuthorityDict>sysOrgan</dataAuthorityDict>
+  <dataAuthorityPath>${workspace}\\${projectName}\\dynafile\\dataAuthority\\authority.xml</dataAuthorityPath>
+  <sysid>011700_</sysid>
+  <pswmd5>false</pswmd5>
+  <userInfoPath>${workspace}\\${projectName}\\dynafile\\userinfo\\</userInfoPath>
+  <organInfoPath>${workspace}\\${projectName}\\dynafile\\organinfo\\</organInfoPath>
+ 
+  <!-- 字典 -->
+  <dictionary>
+	  <!-- or classpath:/dictionary -->
+	  <dictCfg>${workspace}\\${projectName}\\WEB-INF/classes/dictionary/</dictCfg>
+	  <dbType>oracle</dbType>
+  </dictionary>
+  
+  
+  <!-- 网站模块 -->
+  <captionImg>${workspace}\\${projectName}\\dynafile/webcmsCaption/</captionImg>
+  <articleImg>${workspace}\\${projectName}\\dynafile/webcmsArticle/</articleImg>
+  <gtdj>${workspace}\\${projectName}\\dynafile\\gtdj\\</gtdj>
+</root>

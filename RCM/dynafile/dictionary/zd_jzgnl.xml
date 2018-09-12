@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编织异动 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>18-25</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>26-30</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>31-35</label>
+	</col>
+	<col>
+		<id>4</id>
+		<pid></pid>
+		<label>36-45</label>
+	</col>
+	<col>
+		<id>5</id>
+		<pid></pid>
+		<label>45以上</label>
+	</col>
+	<col>
+		<id>6</id>
+		<pid></pid>
+		<label>18岁以下</label>
+	</col>
+</dictionary>

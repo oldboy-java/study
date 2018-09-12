@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 请假状态 -->
+<dictionary>
+	<col>
+		<id>0</id>
+		<pid></pid>
+		<label>假期中</label>
+	</col>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>提前回归</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>正常结束</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>假期延长</label>
+	</col>
+</dictionary>

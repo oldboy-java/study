@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dictionary>
+	<col>
+		<id>UTF-8</id>
+		<pid></pid>
+		<label>UTF-8</label>
+	</col>
+	<col>
+		<id>GB2312</id>
+		<pid></pid>
+		<label>GB2312</label>
+	</col>
+</dictionary>

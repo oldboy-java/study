@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.YhkzxxMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Yhkzxx" id="YhkzxxResult">
+		<id property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="jf" column="JF" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schYhkzxx" resultMap="YhkzxxResult">
+		SELECT * FROM jxzy_yhkzxx AS t where true
+		<if test="userId!=null and userId !=''"> AND USER_ID = #{userId}</if>
+		<if test="jf!=null and jf !=''"> AND jf = #{jf}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schYhkzxxById" parameterType="int" resultMap="YhkzxxResult">
+		SELECT *
+		FROM jxzy_yhkzxx AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addYhkzxx" parameterType="com.qtrmoon.zygl.pojo.Yhkzxx"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_yhkzxx(ID,USER_ID,JF)
+		VALUES(#{id},#{userId},#{jf})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updYhkzxx" parameterType="com.qtrmoon.zygl.pojo.Yhkzxx">
+		UPDATE jxzy_yhkzxx SET JF=JF+#{jf} WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delYhkzxx" parameterType="int">
+		DELETE FROM jxzy_yhkzxx
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delYhkzxxs">
+		DELETE FROM jxzy_yhkzxx
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

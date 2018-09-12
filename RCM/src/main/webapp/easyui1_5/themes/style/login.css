@@ -1,0 +1,164 @@
+html,
+body {
+	position: relative;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+h1,
+h2,
+h3 {
+	padding: 0;
+	margin: 0;
+}
+
+ul,
+li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.header {
+	height: 90px;
+	line-height: 90px;
+	padding: 10px 0 0 90px;
+	background-color: #293c55; 
+}
+
+.header h2 {
+	padding-left: 300px;
+	font-size: 36px;
+    line-height: 80px;
+	color: #b9b9bc;
+	background-image: url(./image/logo.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-size: auto;
+}
+
+.easyui-panel {
+	width: 100% !important;
+	padding-top: 130px;
+	text-align: center;
+}
+
+.easyui-panel .loginbox,
+.easyui-panel img {
+	display: inline-block;
+}
+
+.easyui-panel img {
+    width: 610px;
+    height: 390px;
+    margin-right: 6%;
+    vertical-align: top;
+}
+
+.easyui-panel .loginbox {
+	padding: 42px 30px;
+	background-color: #fff;
+	border: 1px #ccc solid;
+}
+
+.easyui-panel .loginbox h3 {
+	margin-bottom: 20px;
+	font-size: 20px;
+	color: #090723;
+	text-align: center;
+}
+
+.loginbox .switcher {
+	margin-bottom: 35px;
+}
+
+.loginbox .switcher li {
+	display: inline-block;
+	padding: 6px;
+	margin: 0 10px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.loginbox .switcher li a {
+	color: #999
+}
+
+#signup {
+	display: none;	
+}
+
+.loginbox .switcher li.selected {
+	border-bottom: 1px #f55d54 solid;
+} 
+
+.easyui-panel .loginbox input {
+	display: block;
+	width: 230px;
+	height: 48px;
+	padding-left: 65px;
+	line-height: 48px;
+	margin-bottom: 20px;
+	border: 1px #999 solid;
+	outline: none;
+}
+
+#login .item {
+	position: relative;
+}
+
+#login .item span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 65px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+}
+
+#login .item span img {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 28px;
+    height: 27px;
+    vertical-align: middle;
+}
+
+.loginbox input[type="submit"] {
+	width: 100%;
+	margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 16px;
+	background-color: #f55d54;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	color: #b9b9bc;
+	text-align: center;
+	background-color: #293c55;
+}

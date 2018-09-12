@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('icomoon.eot?5l6c79');
+  src:  url('icomoon.eot?5l6c79#iefix') format('embedded-opentype'),
+    url('icomoon.ttf?5l6c79') format('truetype'),
+    url('icomoon.woff?5l6c79') format('woff'),
+    url('icomoon.svg?5l6c79#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-uploads:before {
+  content: "\e900";
+}
+.icon-pinglun:before {
+  content: "\e901";
+}
+.icon-all:before {
+  content: "\e902";
+}
+.icon-biaoqing:before {
+  content: "\e903";
+}
+.icon-del:before {
+  content: "\e904";
+}
+.icon-dianzhang:before {
+  content: "\e905";
+}
+.icon-dianzhang2:before {
+  content: "\e906";
+}
+.icon-dongman:before {
+  content: "\e907";
+}
+.icon-edit:before {
+  content: "\e908";
+}
+.icon-eye:before {
+  content: "\e909";
+}
+.icon-eye2:before {
+  content: "\e90a";
+}
+.icon-gengduo:before {
+  content: "\e90b";
+}
+.icon-geshi:before {
+  content: "\e90c";
+}
+.icon-gonggao:before {
+  content: "\e90d";
+}
+.icon-gou:before {
+  content: "\e90e";
+}
+.icon-huifu:before {
+  content: "\e90f";
+}
+.icon-huifu2:before {
+  content: "\e910";
+}
+.icon-message:before {
+  content: "\e911";
+}
+.icon-message3:before {
+  content: "\e912";
+}
+.icon-prefer:before {
+  content: "\e913";
+}
+.icon-seach:before {
+  content: "\e914";
+}
+.icon-shichang:before {
+  content: "\e915";
+}
+.icon-shize:before {
+  content: "\e916";
+}
+.icon-shopcar:before {
+  content: "\e917";
+}
+.icon-shouchang:before {
+  content: "\e918";
+}
+.icon-shouchang2:before {
+  content: "\e919";
+}
+.icon-shuxue:before {
+  content: "\e91a";
+}
+.icon-soft:before {
+  content: "\e91b";
+}
+.icon-tel:before {
+  content: "\e91c";
+}
+.icon-time:before {
+  content: "\e91d";
+}
+.icon-tumu:before {
+  content: "\e91e";
+}
+.icon-upload:before {
+  content: "\e91f";
+}
+.icon-user:before {
+  content: "\e920";
+}

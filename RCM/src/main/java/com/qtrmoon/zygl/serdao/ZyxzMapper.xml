@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.ZyxzMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Zyxz" id="ZyxzResult">
+		<id property="id" column="ID" />
+		<result property="zyid" column="ZYID" />
+		<result property="xzrid" column="XZRID" />
+		<result property="xzsj" column="XZSJ" />
+		<result property="xxid" column="XXID" />
+		<association property="zy" javaType="com.qtrmoon.zygl.pojo.Zy">
+		    <id property="id" column="ID" />
+		    <result property="zymc" column="ZYMC" />
+		    <result property="ssxkid" column="SSXKID" />
+		    <result property="wjgs" column="WJGS" />
+		    <result property="scrid" column="SCRID" />
+		    <result property="zyzt" column="ZYZT" />
+		    <result property="zydz" column="ZYDZ" />
+		    <result property="zyly" column="ZYLY" />
+		    <result property="zz" column="ZZ" />
+		    <result property="scrq" column="SCRQ" />
+		    <result property="llcs" column="LLCS" />
+		    <result property="xzcs" column="XZCS" />
+		    <result property="sccs" column="SCCS" />
+		    <result property="plcs" column="PLCS" />
+		    <result property="xxid" column="XXID" />
+		    <result property="wjdx" column="WJDX" />
+		    <result property="shzt" column="SHZT" />
+		    <result property="fmlj" column="FMLJ" />
+		    <result property="hzm" column="HZM" />
+		    <result property="wjmc" column="WJMC" />
+		    <result property="zhcg" column="ZHCG" />
+		    <result property="scr" column="SCR" />
+		</association>
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schZyxz" resultMap="ZyxzResult">
+		SELECT * FROM jxzy_zyxz AS t where true
+		<if test="zyid!=null and zyid !=''"> AND zyid like #{zyid}</if>
+		<if test="xzrid!=null and xzrid !=''"> AND xzrid like #{xzrid}</if>
+		<if test="xzsjBeg!=null and xzsjBeg!=''"> AND xzsj &gt;= #{xzsjBegDate}</if>
+		<if test="xzsjEnd!=null and xzsjEnd!=''"> AND xzsj &lt;= #{xzsjEndDate}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schZyxzById" parameterType="int" resultMap="ZyxzResult">
+		SELECT *
+		FROM jxzy_zyxz AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 查询当前用户下载信息和资源信息 -->
+	<select id="schMyZyxz" resultMap="ZyxzResult">
+		SELECT x.ID,x.zyid,x.xzsj,z.wjgs,z.ssxkid,z.scrid,z.zz,z.zymc,z.wjdx,z.fmlj,z.zydz,z.scr from jxzy_zyxz x, jxzy_zy z
+		where z.ID=x.ZYID 
+		AND XZRID=#{xzrid}	
+	</select>
+	
+	<!-- 查询当前用户的资源信息和被下载信息 -->
+	<select id="schMyZyAndZyxz" resultMap="ZyxzResult">
+		SELECT x.ID,x.zyid,x.xzsj,z.wjgs,z.ssxkid,z.zz,z.zymc,z.fmlj,z.xzcs,z.llcs,z.wjdx,z.zydz from jxzy_zyxz x, jxzy_zy z
+		where z.ID=x.ZYID 
+		AND z.SCRID=#{zy.scrid}	
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addZyxz" parameterType="com.qtrmoon.zygl.pojo.Zyxz"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zyxz(ID,ZYID,XZRID,XZSJ,XXID)
+		VALUES(#{id},#{zyid},#{xzrid},#{xzsj},#{xxid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updZyxz" parameterType="com.qtrmoon.zygl.pojo.Zyxz">
+		UPDATE jxzy_zyxz SET
+		ID=#{id},ZYID=#{zyid},XZRID=#{xzrid},XZSJ=#{xzsj},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delZyxz" parameterType="int">
+		DELETE FROM jxzy_zyxz
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delZyxzs">
+		DELETE FROM jxzy_zyxz
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<!-- 查询资源下载的个数 -->
+	<select id="schZyxzCount" resultType="java.lang.Integer">
+	    SELECT count(*) 
+	    FROM jxzy_zyxz AS t WHERE ZYID=#{zyid}
+	</select>
+	
+		<!-- 统计资源下载 -->
+	<select id="schZyxzcs"  resultType="hashmap">
+		select z.SSXKID as ssxkid,z.ZYMC as zymc,COUNT(*) as amount from jxzy_zyxz x INNER JOIN jxzy_zy z  ON z.ID=X.ZYID WHERE true
+		<if test="zy.ssxkid!=null and zy.ssxkid !=''"> AND ssxkid like #{zy.ssxkid}</if>
+		<if test="zy.zymc!=null and zy.zymc !=''"> AND zymc like #{zy.zymc}</if>
+		GROUP BY x.ZYID
+	</select>
+</mapper>

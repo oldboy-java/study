@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.ZyplMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Zypl" id="ZyplResult">
+		<id property="id" column="ID" />
+		<result property="zyid" column="ZYID" />
+		<result property="plnr" column="PLNR" />
+		<result property="plrid" column="PLRID" />
+		<result property="plrlx" column="PLRLX" />
+		<result property="plrxm" column="PLRXM" />
+		<result property="plsj" column="PLSJ" />
+		<result property="xxid" column="XXID" />
+		<result property="lx" column="LX" />
+		<result property="pls" column="PLS" />
+		<result property="zymc" column="ZYMC" />
+		<association property="zy" javaType="com.qtrmoon.zygl.pojo.Zy">
+		    <id property="id" column="ID" />
+		    <result property="zymc" column="ZYMC" />
+		    <result property="ssxkid" column="SSXKID" />
+		    <result property="wjgs" column="WJGS" />
+		    <result property="zyzt" column="ZYZT" />
+		    <result property="zydz" column="ZYDZ" />
+		    <result property="zyly" column="ZYLY" />
+		    <result property="zz" column="ZZ" />
+		    <result property="scrq" column="SCRQ" />
+		    <result property="llcs" column="LLCS" />
+		    <result property="xzcs" column="XZCS" />
+		    <result property="sccs" column="SCCS" />
+		    <result property="plcs" column="PLCS" />
+		    <result property="xxid" column="XXID" />
+		    <result property="wjdx" column="WJDX" />
+		    <result property="shzt" column="SHZT" />
+		    <result property="fmlj" column="FMLJ" />
+		    <result property="hzm" column="HZM" />
+		    <result property="wjmc" column="WJMC" />
+		    <result property="zhcg" column="ZHCG" />
+		</association>
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schZypl" resultMap="ZyplResult">
+		SELECT * FROM jxzy_zypl AS t where true
+		<if test="zyid!=null and zyid !=''"> AND zyid like #{zyid}</if>
+		<if test="plnr!=null and plnr !=''"> AND plnr like #{plnr}</if>
+		<if test="plrid!=null and plrid !=''"> AND plrid like #{plrid}</if>
+		<if test="plrlx!=null and plrlx !=''"> AND plrlx like #{plrlx}</if>
+		<if test="plrxm!=null and plrxm !=''"> AND plrxm like #{plrxm}</if>
+		<if test="plsjBeg!=null and plsjBeg!=''"> AND plsj &gt;= #{plsjBegDate}</if>
+		<if test="plsjEnd!=null and plsjEnd!=''"> AND plsj &lt;= #{plsjEndDate}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="lx!=null and lx !=''"> AND lx like #{lx}</if>
+		<if test="pls!=null and pls !=''"> AND pls like #{pls}</if>
+		<if test="zymc!=null and zymc !=''"> AND zymc like #{zymc}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 查询评论的资源以及评论信息 -->
+	<select id="schZyAndZypl" resultMap="ZyplResult">
+		SELECT a.ID,a.zyid,a.plnr,a.PLSJ,z.wjgs,z.ssxkid,z.zz,z.zymc,z.fmlj FROM jxzy_zypl a INNER JOIN (SELECT max(id) id,zyId FROM jxzy_zypl WHERE PLRID = #{plrid} GROUP BY ZYID) b ON a.ID = b.id AND a.ZYID = b.zyId
+INNER JOIN jxzy_zy z ON  a.ZYID = z.ID
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schZyplById" parameterType="int" resultMap="ZyplResult">
+		SELECT *
+		FROM jxzy_zypl AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addZypl" parameterType="com.qtrmoon.zygl.pojo.Zypl"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zypl(ID,ZYID,PLNR,PLRID,PLRLX,PLRXM,PLSJ,XXID,PLS,ZYMC)
+		VALUES(#{id},#{zyid},#{plnr},#{plrid},#{plrlx},#{plrxm},#{plsj},#{xxid},#{pls},#{zymc})
+	</insert>
+	
+	<!-- 增加 -->
+	<insert id="addZyplhf" parameterType="com.qtrmoon.zygl.pojo.Zypl"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zypl(ID,ZYID,PLNR,PLRID,PLRLX,PLRXM,PLSJ,XXID,LX,PLS,ZYMC)
+		VALUES(#{id},#{zyid},#{plnr},#{plrid},#{plrlx},#{plrxm},#{plsj},#{xxid},#{lx},#{pls},#{zymc})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updZypl" parameterType="com.qtrmoon.zygl.pojo.Zypl">
+		UPDATE jxzy_zypl SET
+		ID=#{id},ZYID=#{zyid},PLNR=#{plnr},PLRID=#{plrid},PLRLX=#{plrlx},PLRXM=#{plrxm},PLSJ=#{plsj},XXID=#{xxid},PLS=#{pls},ZYMC=#{zymc}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delZypl" parameterType="int">
+		DELETE FROM jxzy_zypl
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delZypls">
+		DELETE FROM jxzy_zypl
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<!-- 统计资源评论 -->
+	<select id="schZyplcs"  resultType="hashmap">
+		select z.SSXKID as ssxkid,z.ZYMC as zymc,COUNT(*) as amount from jxzy_zypl x INNER JOIN jxzy_zy z  ON z.ID=X.ZYID WHERE true
+		<if test="zy.ssxkid!=null and zy.ssxkid !=''"> AND ssxkid like #{zy.ssxkid}</if>
+		<if test="zy.zymc!=null and zy.zymc !=''"> AND z.zymc like #{zy.zymc}</if>
+		GROUP BY x.ZYID
+	</select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>图片</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>列表</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>头条</label>
+	</col>
+	<col>
+		<id>5</id>
+		<pid></pid>
+		<label>通知通告</label>
+	</col>
+</dictionary>

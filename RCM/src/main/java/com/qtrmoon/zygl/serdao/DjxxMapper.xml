@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.DjxxMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Djxx" id="DjxxResult">
+		<id property="id" column="ID" />
+		<result property="djmc" column="DJMC" />
+		<result property="zxjf" column="ZXJF" />
+		<result property="zdjf" column="ZDJF" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schDjxx" resultMap="DjxxResult">
+		SELECT * FROM jxzy_djxx AS t where true
+		<if test="djmc!=null and djmc !=''"> AND djmc like #{djmc}</if>
+		<if test="zxjf!=null and zxjf !=''"> AND zxjf = #{zxjf}</if>
+		<if test="zdjf!=null and zdjf !=''"> AND zdjf = #{zdjf}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schDjxxById" parameterType="int" resultMap="DjxxResult">
+		SELECT *
+		FROM jxzy_djxx AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addDjxx" parameterType="com.qtrmoon.zygl.pojo.Djxx"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_djxx(ID,DJMC,ZXJF,ZDJF)
+		VALUES(#{id},#{djmc},#{zxjf},#{zdjf})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updDjxx" parameterType="com.qtrmoon.zygl.pojo.Djxx">
+		UPDATE jxzy_djxx SET
+		ID=#{id},DJMC=#{djmc},ZXJF=#{zxjf},ZDJF=#{zdjf}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delDjxx" parameterType="int">
+		DELETE FROM jxzy_djxx
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delDjxxs">
+		DELETE FROM jxzy_djxx
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	
+	<!-- 等级名称查询 -->
+	<select id="schDjxxByDjmc" parameterType="string" resultMap="DjxxResult">
+		SELECT *
+		FROM jxzy_djxx AS t WHERE
+		DJMC=#{djmc}
+	</select>
+	
+	<!-- 积分查询 -->
+	<select id="schDjxxByJf" parameterType="int" resultMap="DjxxResult">
+		SELECT * FROM jxzy_djxx AS t WHERE ZXJF&lt;=#{jf} and ZDJF&gt;=#{jf}
+	</select>
+	
+</mapper>

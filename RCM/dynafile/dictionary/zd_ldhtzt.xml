@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 劳动合同状态 -->
+<dictionary>
+	<col>
+		<id>0</id>
+		<pid></pid>
+		<label>续签</label>
+	</col>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>终止</label>
+	</col>
+</dictionary>

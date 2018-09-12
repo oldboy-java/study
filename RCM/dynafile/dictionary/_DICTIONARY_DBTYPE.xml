@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dictionary>
+	<col>
+		<id>mysql</id>
+		<pid></pid>
+		<label>mysql</label>
+	</col>
+	<col>
+		<id>oracle</id>
+		<pid></pid>
+		<label>oracle</label>
+	</col>
+	<col>
+		<id>sqlserver</id>
+		<pid></pid>
+		<label>sqlserver</label>
+	</col>
+</dictionary>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+  <!-- 统计表的唯一标识 -->
+  <statid>student.dict</statid>
+  <!-- 统计表的中文名称 -->
+  <statinfo>学生分类统计</statinfo>
+  
+  <!-- 对应登记表名称 -->
+  <enrolTable>STUDENT</enrolTable>
+  <enrolClassify>ZY</enrolClassify><!-- 分类列（与字典值对应） -->
+  <enrolClassifyDict>ZD_ZY</enrolClassifyDict>  <!-- 字典表表名-->
+  <enrolClassifyDictConfig>{root:,enum:}</enrolClassifyDictConfig>  <!-- 字典表数据配置-->
+  <enrolCollect>CLASS</enrolCollect><!-- 登记表汇总列（如果没有定义则没有汇总列） -->
+  <enrolCollectDict>ZD_CLASS</enrolCollectDict><!-- 登记表汇总列调用的字典标识 -->
+  <enrolCollectDictConfig>{root:,enum:}</enrolCollectDictConfig><!-- 登记表汇总字典的Root模式，[root|enumerate]根模式和枚举模式，根模式会连带其直接子； -->
+  <caculate>count</caculate><!-- 登记表数据列统计方法（e.g:sum.如果没有定义则为count运算,） -->
+  <enrolSumCol></enrolSumCol><!-- 做SUM运算的字段 -->
+  <hasBigSum>true</hasBigSum>
+</xml-body>
+

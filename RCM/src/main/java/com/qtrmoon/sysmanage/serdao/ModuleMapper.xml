@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.sysmanage.serdao.ModuleMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.sysmanage.pojo.Module" id="ModuleResult">
+		<id property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="keyword" column="KEYWORD" />
+		<result property="funcs" column="FUNCS" />
+		<result property="link" column="LINK" />
+		<result property="info" column="INFO" />
+		<result property="ord" column="ORD" />
+		<result property="icon" column="ICON" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schModule" resultMap="ModuleResult">
+		SELECT * FROM sys_module AS t where true
+		<if test="name!=null and name !=''"> AND name like #{name}</if>
+		<if test="keyword!=null and keyword !=''"> AND keyword like #{keyword}</if>
+		<if test="funcs!=null and funcs !=''"> AND funcs like #{funcs}</if>
+		<if test="link!=null and link !=''"> AND link like #{link}</if>
+		<if test="info!=null and info !=''"> AND info like #{info}</if>
+		<if test="ord!=null and ord !=''"> AND ord = #{ord}</if>
+		<if test="icon!=null and icon !=''"> AND icon like #{icon}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schModuleById" parameterType="int" resultMap="ModuleResult">
+		SELECT *
+		FROM sys_module AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addModule" parameterType="com.qtrmoon.sysmanage.pojo.Module"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		sys_module(ID,NAME,KEYWORD,FUNCS,LINK,INFO,ORD,ICON)
+		VALUES(#{id},#{name},#{keyword},#{funcs},#{link},#{info},#{ord},#{icon})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updModule" parameterType="com.qtrmoon.sysmanage.pojo.Module">
+		UPDATE sys_module SET
+		ID=#{id},NAME=#{name},KEYWORD=#{keyword},FUNCS=#{funcs},LINK=#{link},INFO=#{info},ORD=#{ord},ICON=#{icon}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delModule" parameterType="int">
+		DELETE FROM sys_module
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delModules">
+		DELETE FROM sys_module
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

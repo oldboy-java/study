@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.WjzhMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Wjzh" id="WjzhResult">
+		<id property="id" column="ID" />
+		<result property="wjid" column="WJID" />
+		<result property="wjmc" column="WJMC" />
+		<result property="zhjg" column="ZHJG" />
+		<result property="zhsj" column="ZHSJ" />
+		<result property="sftb" column="SFTB" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schWjzh" resultMap="WjzhResult">
+		SELECT * FROM jxzy_wjzh AS t where true
+		<if test="wjid!=null and wjid !=''"> AND wjid like #{wjid}</if>
+		<if test="wjmc!=null and wjmc !=''"> AND wjmc like #{wjmc}</if>
+		<if test="zhjg!=null and zhjg !=''"> AND zhjg like #{zhjg}</if>
+		<if test="sftb!=null"> AND sftb = #{sftb}</if>
+		<if test="zhsjBeg!=null and zhsjBeg!=''"> AND zhsj &gt;= #{zhsjBegDate}</if>
+		<if test="zhsjEnd!=null and zhsjEnd!=''"> AND zhsj &lt;= #{zhsjEndDate}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schWjzhById" parameterType="int" resultMap="WjzhResult">
+		SELECT *
+		FROM jxzy_wjzh AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addWjzh" parameterType="com.qtrmoon.zygl.pojo.Wjzh"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_wjzh(ID,WJID,WJMC,ZHJG,ZHSJ)
+		VALUES(#{id},#{wjid},#{wjmc},#{zhjg},#{zhsj})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updWjzh" parameterType="com.qtrmoon.zygl.pojo.Wjzh">
+		UPDATE jxzy_wjzh SET
+		ID=#{id},WJID=#{wjid},WJMC=#{wjmc},ZHJG=#{zhjg},ZHSJ=#{zhsj}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delWjzh" parameterType="int">
+		DELETE FROM jxzy_wjzh
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delWjzhs">
+		DELETE FROM jxzy_wjzh
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+		<!-- 更新是否同步 -->
+	<update id="updWjzhSftb" parameterType="java.util.List">
+		UPDATE  jxzy_wjzh SET SFTB=1 
+		<if test="list != null">
+			<where>
+				ID IN
+				<foreach item="item" collection="list" open="(" separator="," close=")"> #{item} </foreach>
+			</where>
+		</if>
+	</update>
+</mapper>

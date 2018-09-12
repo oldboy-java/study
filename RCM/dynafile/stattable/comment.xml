@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+  <statid>comment</statid>
+  <statinfo>资源评论统计</statinfo>
+  <stattype>dict</stattype>
+  <enrolTable>JXZY_ZYPL</enrolTable>
+  <enrolClassify>LX</enrolClassify>
+  <enrolClassifyDict>ZD_PLLX</enrolClassifyDict>
+  <enrolClassifyDictConfig></enrolClassifyDictConfig>
+  <enrolCollect>ZYID</enrolCollect>
+  <enrolCollectInfo>资源名称</enrolCollectInfo>
+  <enrolCollectDict>ZD_ZYMC</enrolCollectDict>
+  <enrolCollectDictConfig></enrolCollectDictConfig>
+  <caculate>count</caculate>
+  <enrolSumCol></enrolSumCol>
+  <sql>select ZIYUANMINGCHENG as collect,PINGLUNLEIXING as classify,count(1) as amount from comment group by ZIYUANMINGCHENG,PINGLUNLEIXING</sql>
+  <enrolGroup></enrolGroup>
+  <hasBigSum>true</hasBigSum>
+  <conditionPane></conditionPane>
+</xml-body>

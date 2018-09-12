@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.sysmanage.serdao.FunctionMapper">
+	<resultMap type="com.qtrmoon.sysmanage.pojo.Function" id="FunctionResult">
+		<id property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="pid" column="PID" />
+		<result property="link" column="LINK" />
+		<result property="isshow" column="ISSHOW" />
+		<result property="info" column="INFO" />
+		<result property="picico" column="PICICO" />
+		<result property="picimg" column="PICIMG" />
+		<result property="ord" column="ORD" />
+		<result property="treetrack" column="TREETRACK" />
+		<result property="modulename" column="MODULENAME" />
+	</resultMap>
+	
+	<!-- 条件查询方法 -->
+	<select id="schFunction" resultMap="FunctionResult">
+		SELECT * FROM sys_function AS t where true
+		<if test="name!=null and name !=''"> AND name = #{name}</if>
+		<if test="pid!=null"> AND pid = #{pid}</if>
+		<if test="link!=null and link !=''"> AND link = #{link}</if>
+		<if test="isshow!=null and isshow !=''"> AND isshow = #{isshow}</if>
+		<if test="info!=null and info !=''"> AND info = #{info}</if>
+		<if test="picico!=null and picico !=''"> AND picico = #{picico}</if>
+		<if test="picimg!=null and picimg !=''"> AND picimg = #{picimg}</if>
+		<if test="ord!=null and ord !=''"> AND ord = #{ord}</if>
+		<if test="treetrack!=null and treetrack !=''"> AND treetrack = #{treetrack}</if>
+		<if test="modulename!=null and modulename !=''"> AND modulename = #{modulename}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	<select id="schFunctionById" parameterType="int" resultMap="FunctionResult">
+		SELECT *
+		FROM sys_function AS t WHERE
+		ID=#{id}
+	</select>
+	<insert id="addFunction" parameterType="com.qtrmoon.sysmanage.pojo.Function">
+		INSERT INTO
+		sys_function(ID,NAME,PID,LINK,ISSHOW,INFO,PICICO,PICIMG,ORD,TREETRACK,MODULENAME)
+		VALUES(#{id},#{name},#{pid},#{link},#{isshow},#{info},#{picico},#{picimg},#{ord},#{treetrack},#{modulename})
+	</insert>
+	<update id="updFunction" parameterType="com.qtrmoon.sysmanage.pojo.Function">
+		UPDATE sys_function SET
+		ID=#{id},NAME=#{name},PID=#{pid},LINK=#{link},ISSHOW=#{isshow},INFO=#{info},PICICO=#{picico},PICIMG=#{picimg},ORD=#{ord},TREETRACK=#{treetrack},MODULENAME=#{modulename}
+		WHERE ID=#{id}
+	</update>
+	<delete id="delFunction" parameterType="int">
+		DELETE FROM sys_function
+		WHERE ID=#{id}
+	</delete>
+	<delete id="delFunctions">
+		DELETE FROM sys_function
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

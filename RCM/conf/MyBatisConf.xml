@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <settings>
+    <setting name="logImpl" value="LOG4J" />
+  </settings>
+  <!-- 配置映射类的别名 -->
+  <typeAliases />
+  <plugins>
+    <!-- com.github.pagehelper为PageHelper类所在包名 -->
+    <plugin interceptor="com.github.pagehelper.PageHelper">
+      <property name="dialect" value="mysql" />
+      <!-- 该参数默认为false -->
+      <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+      <!-- 和startPage中的pageNum效果一样-->
+      <property name="offsetAsPageNum" value="true" />
+      <!-- 该参数默认为false -->
+      <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+      <property name="rowBoundsWithCount" value="true" />
+    </plugin>
+  </plugins>
+  <!-- 配置Mapper文件的路径 -->
+  <mappers>
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyplMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyplhfMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyscMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyxzMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZyllMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/TzggMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/XklbMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/PhsdMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/ZydzMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/WjzhMapper.xml" />
+    <mapper resource="com/qtrmoon/dynstat/serdao/StatDataMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/DjxxMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/YhkzxxMapper.xml" />
+    <mapper resource="com/qtrmoon/zygl/serdao/WzszMapper.xml" />
+    <package name="com.qtrmoon.sysmanage.serdao" />
+  </mappers>
+</configuration>
+

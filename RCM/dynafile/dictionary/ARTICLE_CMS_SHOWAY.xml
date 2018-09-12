@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>tpdetail01.ftl</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>tpdetail02.ftl</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>tpdetail03.ftl</label>
+	</col>
+</dictionary>

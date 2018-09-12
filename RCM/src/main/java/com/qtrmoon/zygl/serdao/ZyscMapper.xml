@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.ZyscMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Zysc" id="ZyscResult">
+		<id property="id" column="ID" />
+		<result property="zyid" column="ZYID" />
+		<result property="scrid" column="SCRID" />
+		<result property="scsj" column="SCSJ" />
+		<result property="xxid" column="XXID" />
+		<association property="zy" javaType="com.qtrmoon.zygl.pojo.Zy">
+		    <id property="id" column="ID" />
+		    <result property="zymc" column="ZYMC" />
+		    <result property="ssxkid" column="SSXKID" />
+		    <result property="wjgs" column="WJGS" />
+		    <result property="zyzt" column="ZYZT" />
+		    <result property="zydz" column="ZYDZ" />
+		    <result property="zyly" column="ZYLY" />
+		    <result property="zz" column="ZZ" />
+		    <result property="scrq" column="SCRQ" />
+		    <result property="llcs" column="LLCS" />
+		    <result property="xzcs" column="XZCS" />
+		    <result property="sccs" column="SCCS" />
+		    <result property="plcs" column="PLCS" />
+		    <result property="xxid" column="XXID" />
+		    <result property="wjdx" column="WJDX" />
+		    <result property="shzt" column="SHZT" />
+		    <result property="fmlj" column="FMLJ" />
+		    <result property="hzm" column="HZM" />
+		    <result property="wjmc" column="WJMC" />
+		    <result property="zhcg" column="ZHCG" />
+		</association>
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schZysc" resultMap="ZyscResult">
+		SELECT * FROM jxzy_zysc AS t where true
+		<if test="zyid!=null and zyid !=''"> AND zyid like #{zyid}</if>
+		<if test="scrid!=null and scrid !=''"> AND scrid like #{scrid}</if>
+		<if test="scsjBeg!=null and scsjBeg!=''"> AND scsj &gt;= #{scsjBegDate}</if>
+		<if test="scsjEnd!=null and scsjEnd!=''"> AND scsj &lt;= #{scsjEndDate}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 查询收藏的资源以及收藏信息 -->
+	<select id="schZyAndZysc" resultMap="ZyscResult">
+		SELECT c.ID,c.zyid,c.SCSJ,z.wjgs,z.ssxkid,z.zz,z.zymc,z.fmlj from jxzy_zysc c, jxzy_zy z
+		where z.ID=c.ZYID 
+		AND c.SCRID=#{scrid}	
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schZyscById" parameterType="int" resultMap="ZyscResult">
+		SELECT *
+		FROM jxzy_zysc AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addZysc" parameterType="com.qtrmoon.zygl.pojo.Zysc"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_zysc(ID,ZYID,SCRID,SCSJ,XXID)
+		VALUES(#{id},#{zyid},#{scrid},#{scsj},#{xxid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updZysc" parameterType="com.qtrmoon.zygl.pojo.Zysc">
+		UPDATE jxzy_zysc SET
+		ID=#{id},ZYID=#{zyid},SCRID=#{scrid},SCSJ=#{scsj},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delZysc" parameterType="int">
+		DELETE FROM jxzy_zysc
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delZyscs">
+		DELETE FROM jxzy_zysc
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<!-- 查询资源收藏的个数 -->
+	<select id="schZyscCount" resultType="java.lang.Integer">
+	    SELECT count(*) 
+	    FROM jxzy_zysc AS t WHERE ZYID=#{zyid} 
+	</select>
+	
+	<!--根据用户和资源ID删除 -->
+	<delete id="delZyscByUserIdZyId" parameterType="map">
+		DELETE FROM jxzy_zysc WHERE ZYID=#{zyId}  and SCRID=#{userId}
+	</delete>
+</mapper>

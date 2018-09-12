@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>上传</title>
+		<link rel="stylesheet" type="text/css" href="css/master.css"/>
+		<script src="plupload.full.js"></script>
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<!--[if IE 6]>
+		<script src="css/DD_belatedPNG_0.0.8a-min.js"></script>
+		<script>
+		DD_belatedPNG.fix('i,a');
+		</script>
+		<![endif]-->
+		<script>
+			var args = {}, fileArr = [], count = 0;
+			(function() {
+				var qs = location.search.length > 0 ? location.search.substring(1) : "",
+					qs = qs.substring(qs.length - 1, qs.length) == "&" ? qs.substring(0, qs.length - 1) : qs,	// 防止没有传参数时多带的一个'&'符号
+					items = qs.length ? qs.split("&") : [],
+					item = null,
+					name = null,
+					value = null,
+					i = 0, len = items.length;
+				for (i = 0; i <len; i++) {
+					item = items[i].split("=");
+					name = decodeURIComponent(item[0]);
+					value = decodeURIComponent(item[1]);
+					
+					if (name.length) {
+						args[name] = value;
+					}
+				}
+			})();
+		</script>
+	</head>
+
+	<body>
+		<div class="uploadDiv">
+			<div class="topTit">
+				<a class="close" href="javascript:void(0)"></a>上传
+			</div>
+			<div class="divCon">
+				<table class="tabList" cellpadding="0" cellspacing="0">
+					<tr><th class="left10">文件名</th><th width="70">大小</th><th width="200">状态</th><th width="70">操作</th></tr>
+				</table>
+				<div class="listDiv">
+					<ul class="listUl" id="filelist">
+						<div style="font-size:15px; padding:30px 0 0 145px; color:red;">请安装flash，或者使用支持html5的浏览器！</div>
+					</ul>
+				</div>
+				<div class="botBtn">
+					<a class="selectB" href="javascript:void(0)" id="pickfiles"><span>添加</span></a>&nbsp;&nbsp;<a class="finish" href="javascript:void(0)"><span>完成</span></a>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function() {
+				var uploader = new plupload.Uploader({
+					runtimes : 'html5,flash,html4',
+					unique_names : true,
+					// chunk_size : '1mb',
+					filters : [{title : ' ', extensions : args.fileType ? args.fileType :'*'}],
+					browse_button : 'pickfiles',
+					max_file_size : args.maxSize ? (args.maxSize + 'mb') : '300mb',
+					url : args.url ? args.url : '/uploaderServlet',
+					flash_swf_url : '/way-upload/plupload.flash.swf',
+					multipart_params : (args.data ? $.parseJSON(args.data.replace(/([^{}:,]+)/g, "\"$1\"")) : {})
+				});
+				uploader.bind('Init', function(up, params) {
+					$('#filelist').html("");
+				});
+				uploader.init();
+
+				uploader.bind('FilesAdded', function(up, files) {
+					if (args.count) {
+						count += files.length;
+						if (count > parseInt(args.count)) {
+							alert("最多只能上传" + args.count + "个,请重新选择！");
+							for (var i = 0, len = files.length; i < len; i++) {
+								uploader.removeFile(files[i]);
+							}
+							count -= files.length;
+						} else {
+							$.each(files, function(i, file) {
+								
+								/**
+								 * Plupload有些Bug 我在家里的火狐中html5环境下，竟然文件过滤不可用
+								 * 只添加非法文件时，自动进入error事件中
+								 * 非法文件与合法文件同时选中时，便会进入此循环中
+								 * 官方给的status说法是：1.队列  2.上传中  3.失败  4.完成
+								 * 经过测试，发生错误的文件会在此队列中显示"完成"状态，便暂出此下册了
+								 */
+								if (file.status == 4) {
+									return ;
+								}
+								
+								var str = '<li id="' + file.id + '"><table class="tabList" cellpadding="0" cellspacing="0"><tr>'
+										+ '<td class="left10" title = "' + file.name + '"><div style="width:278px; overflow:hidden;">' + farmatName(file.name) + '</div></td><td width="70">' + plupload.formatSize(file.size) + '</td><td width="200">0&#37;</td><td width="70">'
+										+'<i class="prohibit"></i></td>'
+										+ '</tr></table><div class="proBar"></div></li>';
+								$('#filelist').append(str);
+								$("#" + file.id + " .prohibit").click(function() {
+									uploader.stop();
+									uploader.removeFile(uploader.getFile(file.id));
+									$("#" + file.id).remove();
+									count -= 1;
+									delFile(file.id);
+								});
+							});
+							up.refresh();
+							uploader.start();
+						}
+					}
+				});
+
+				uploader.bind('UploadProgress', function(up, file) {
+					$('#' + file.id + " td").eq(2).html(file.percent + "&#37;");
+					$('#' + file.id + " div:last").css("width", (file.percent + "%"));
+				});
+
+				uploader.bind('Error', function(up, err) {
+					var mes = err.message,
+						file = err.file;
+					
+					if (mes.indexOf("size") > 0) {
+						mes = "超出文件大小限制！";
+					} else if (mes.indexOf("extension") > 0) {
+						mes = "超出文件类型限制！";
+					}
+					
+					var str = '<li id="' + file.id + '"><table class="tabList" cellpadding="0" cellspacing="0"><tr>'
+								+ '<td class="left10" title = "' + file.name + '"><div style="width:278px; overflow:hidden;">' + farmatName(file.name) + '</div></td><td width="70">' + plupload.formatSize(file.size) + '</td><td width="200">0&#37;</td><td width="70">'
+								+'<i class="prohibit"></i></td>'
+								+ '</tr></table><div class="proBar" style="width:100%;"></div></li>';
+					$('#filelist').append(str);
+					
+					$("#" + file.id + " .prohibit").click(function() {
+						uploader.stop();
+						uploader.removeFile(uploader.getFile(file.id));
+						$("#" + file.id).remove();
+						count -= 1;
+						delFile(file.id);
+					});
+					
+					$('#' + err.file.id + " td").eq(2).html(mes);
+					$('#' + err.file.id + " div:last").css("background-color", "#FF3333");
+					$('#' + err.file.id + " div:last").css("opacity", 0.7);
+					up.refresh();
+				});
+
+				uploader.bind('FileUploaded', function(up, file, rep) {
+					rep = $.parseJSON(rep.response);
+					if (rep.state != "SUCCESS") {
+						$('#' + file.id + " td").eq(2).html(rep.state);
+						$('#' + file.id + " div:last").css("background-color", "#FF3333");
+						$('#' + file.id + " div:last").css("opacity", 0.7);
+						count--;
+					} else {
+						$('#' + file.id + " td").eq(2).html('<i class="okIco"></i>');
+						fileArr.push(rep);
+					}
+				});
+				
+				$('.finish').click(function() {
+					if (fileArr.length > 0) {
+						window.parent.WAYUPLOAD.callback(fileArr);
+					}
+					window.parent.WAYUPLOAD.hide();
+				});
+				$('.close').click(function() {
+					window.parent.WAYUPLOAD.hide();
+				});
+				
+				// delete a file from fileArr
+				function delFile(fileid) {
+					for (var i = 0, mark = 0, len = fileArr.length; i < len; i++) {
+						if (fileArr[i].fileId == fileid) {
+							mark = 1;
+						}
+
+						if (mark) {
+							if (i != (len - 1)) {
+								fileArr[i] = fileArr[i + 1];
+							} else {
+								fileArr.pop();
+							}
+						}
+					}
+				}
+
+				function farmatName(name) {
+					var _name = name, index = name.lastIndexOf("\."), temp = 45, mark = temp - 2, fileType = name.substring(index, name.length);
+
+					if (index > 0) {
+						_name = name.substring(0, index);
+						mark = name.length - (name.length - index) - 2;
+					}
+					if (getLen(_name) <= temp) {
+						_name = name;
+					}
+					while (getLen(_name) > temp) {
+						_name = name.substring(0, mark--) + "..." + name.substring(index - 1, index) + fileType;
+					}
+					return _name;
+				}
+
+				function getLen(str) {
+					return (str.match(/[^ -~]/g) == null ? str.length : str.length + str.match(/[^ -~]/g).length);
+				}
+
+			});
+
+			// modify domain
+			if (args.domain != document.domain) {
+				document.domain = args.domain;
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 考核类别 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>平时考核</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>年度考核</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>特定考核</label>
+	</col>
+</dictionary>

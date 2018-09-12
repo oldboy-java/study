@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>templet/viewTp01.jsp</id>
+		<pid></pid>
+		<label>查看模板一</label>
+	</col>
+	<col>
+		<id>templet/viewTp02.jsp</id>
+		<pid></pid>
+		<label>查看模板二</label>
+	</col>
+</dictionary>

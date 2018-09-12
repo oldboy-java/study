@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编织异动 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>调至非教学岗位</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>调至教学岗位</label>
+	</col>
+	<col>
+		<id>9</id>
+		<pid></pid>
+		<label>其他</label>
+	</col>
+</dictionary>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.sysmanage.serdao.UserMapper">
+	<resultMap type="com.qtrmoon.sysmanage.pojo.User" id="UserResult">
+		<id property="id" column="ID" />
+		<result property="loginname" column="LOGINNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="state" column="STATE" />
+		<result property="username" column="USERNAME" />
+		<result property="regtime" column="REGTIME" />
+		<result property="organid" column="ORGANID" />
+		<result property="classify" column="CLASSIFY" />
+		<result property="modulename" column="MODULENAME" />
+		<result property="birthday" column="BIRTHDAY" />
+		<result property="roles" column="ROLES" />
+	</resultMap>
+	<select id="schUser" resultMap="UserResult">
+		SELECT * FROM sys_user AS t where true
+		<if test="loginname!=null and loginname !=''"> AND loginname = #{loginname}</if>
+		<if test="password!=null and password !=''"> AND password = #{password}</if>
+		<if test="state!=null and state !=''"> AND state = #{state}</if>
+		<if test="username!=null and username !=''"> AND username like #{username}</if>
+		<if test="regtime!=null and regtime !=''"> AND regtime = #{regtime}</if>
+		<if test="organid!=null and organid !=''"> AND organid = #{organid}</if>
+		<if test="classify!=null and classify !=''"> AND classify = #{classify}</if>
+		<if test="modulename!=null and modulename !=''"> AND modulename = #{modulename}</if>
+		<if test="birthday!=null and birthday !=''"> AND birthday = #{birthday}</if>
+		<if test="roles!=null and roles !=''"> AND roles = #{roles}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	<select id="schUserById" parameterType="int" resultMap="UserResult">
+		SELECT *
+		FROM sys_user AS t WHERE
+		ID=#{id}
+	</select>
+	<insert id="addUser" parameterType="com.qtrmoon.sysmanage.pojo.User">
+		INSERT INTO
+		sys_user(ID,LOGINNAME,PASSWORD,STATE,USERNAME,REGTIME,ORGANID,CLASSIFY,MODULENAME,BIRTHDAY,ROLES)
+		VALUES(#{id},#{loginname},#{password},#{state},#{username},#{regtime},#{organid},#{classify},#{modulename},#{birthday},#{roles})
+	</insert>
+	<update id="updUser" parameterType="com.qtrmoon.sysmanage.pojo.User">
+		UPDATE sys_user SET
+		ID=#{id},LOGINNAME=#{loginname},PASSWORD=#{password},STATE=#{state},USERNAME=#{username},REGTIME=#{regtime},ORGANID=#{organid},CLASSIFY=#{classify},MODULENAME=#{modulename},BIRTHDAY=#{birthday},ROLES=#{roles}
+		WHERE ID=#{id}
+	</update>
+	
+	<update id="updPassword" parameterType="com.qtrmoon.sysmanage.pojo.User">
+		UPDATE sys_user SET
+		PASSWORD=#{password}
+		WHERE ID=#{id}
+	</update>
+	
+	<delete id="delUser" parameterType="int">
+		DELETE FROM sys_user
+		WHERE ID=#{id}
+	</delete>
+	<delete id="delUsers">
+		DELETE FROM sys_user
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

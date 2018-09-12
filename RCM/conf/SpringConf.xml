@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd        http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-4.2.xsd        http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-4.2.xsd         http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-4.2.xsd         http://mybatis.org/schema/mybatis-spring   http://mybatis.org/schema/mybatis-spring.xsd       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+  <!-- 启用spring注解支持 -->
+  <context:annotation-config />
+  <!-- 加载jdbc配置文件 -->
+  <context:property-placeholder location="classpath:jdbc.properties" file-encoding="utf-8" ignore-unresolvable="true" />
+  
+  <!-- 加载application.properties配置文件 -->
+  <context:property-placeholder location="classpath:application.properties" file-encoding="utf-8" ignore-unresolvable="true" />
+  
+  <!-- 配置要扫描的包 -->
+  <context:component-scan base-package="com.qtrmoon">
+    <!-- 扫描路径不扫描controller -->
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+  </context:component-scan>
+  <!-- 配置数据源 -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
+  <!-- 配置sesssionFactory -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:MyBatisConf.xml" />
+  </bean>
+  <!--配置事务管理器-->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  <!--配置事务传播特性，需要事务管理器transactionManager -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <!-- 事务属性定义 -->
+    <tx:attributes>
+      <tx:method name="get*" read-only="true" />
+      <tx:method name="sch*" read-only="true" />
+      <tx:method name="add*" propagation="REQUIRED" />
+      <tx:method name="upd*" propagation="REQUIRED" />
+      <tx:method name="del*" propagation="REQUIRED" />
+    </tx:attributes>
+  </tx:advice>
+  <!-- 定义com.qtrmoon子包下的serdao下的所有Service类所有方法 -->
+  <aop:config proxy-target-class="true">
+    <aop:pointcut expression=" execution(* com.qtrmoon..serdao.*Service.*(..))" id="serviceMethod" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" />
+  </aop:config>
+  <!-- 自动批量构建mapper接口，作用类上 -->
+  <mybatis:scan base-package="com.qtrmoon.sysmanage.serdao" />
+  <mybatis:scan base-package="com.qtrmoon.zygl.serdao" />
+  <mybatis:scan base-package="com.qtrmoon.dynstat.serdao" />
+  <!-- 启用@Async注解相关配置 -->
+  <task:executor id="executor" pool-size="10" />
+  <task:scheduler id="scheduler" pool-size="10" />
+  <task:annotation-driven scheduler="scheduler" executor="executor" proxy-target-class="true" />
+  <!-- 配置任务详情 -->
+  <task:scheduled-tasks scheduler="scheduler">
+    <task:scheduled ref="rsyncFileConvertResultJob" method="init" cron="0 0/2 9-17 * * ?" />
+  </task:scheduled-tasks>
+</beans>
+

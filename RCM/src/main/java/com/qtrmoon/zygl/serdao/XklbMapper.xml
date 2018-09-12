@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.XklbMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Xklb" id="XklbResult">
+		<id property="id" column="ID" />
+		<result property="xkmc" column="XKMC" />
+		<result property="xxid" column="XXID" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schXklb" resultMap="XklbResult">
+		SELECT * FROM jxzy_xklb AS t where true
+		<if test="xkmc!=null and xkmc !=''"> AND xkmc like #{xkmc}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schXklbById" parameterType="int" resultMap="XklbResult">
+		SELECT *
+		FROM jxzy_xklb AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addXklb" parameterType="com.qtrmoon.zygl.pojo.Xklb"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_xklb(ID,XKMC,XXID)
+		VALUES(#{id},#{xkmc},#{xxid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updXklb" parameterType="com.qtrmoon.zygl.pojo.Xklb">
+		UPDATE jxzy_xklb SET
+		ID=#{id},XKMC=#{xkmc},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delXklb" parameterType="int">
+		DELETE FROM jxzy_xklb
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delXklbs">
+		DELETE FROM jxzy_xklb
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

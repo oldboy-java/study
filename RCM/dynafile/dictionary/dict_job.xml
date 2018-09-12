@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dictionary>
+	<col>
+		<id>0</id>
+		<pid></pid>
+		<label>学生</label>
+	</col>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>老师</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>教职工</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>后勤人员</label>
+	</col>
+</dictionary>

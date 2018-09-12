@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+  <statid>audit</statid>
+  <statinfo>资源审核统计</statinfo>
+  <stattype>dict</stattype>
+  <enrolTable>JXZY_ZY</enrolTable>
+  <enrolClassify>SHZT</enrolClassify>
+  <enrolClassifyDict>ZD_SHZT</enrolClassifyDict>
+  <enrolClassifyDictConfig></enrolClassifyDictConfig>
+  <enrolCollect>ID</enrolCollect>
+  <enrolCollectInfo>资源名称</enrolCollectInfo>
+  <enrolCollectDict>ZD_ZYMC</enrolCollectDict>
+  <enrolCollectDictConfig></enrolCollectDictConfig>
+  <caculate>count</caculate>
+  <enrolSumCol></enrolSumCol>
+  <sql>select ZIYUANMINGCHENG as collect,SHZT as classify,count(1) as amount from audit group by ZIYUANMINGCHENG,SHZT</sql>
+  <hasBigSum>true</hasBigSum>
+</xml-body>

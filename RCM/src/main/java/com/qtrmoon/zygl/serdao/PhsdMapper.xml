@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.PhsdMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Phsd" id="PhsdResult">
+		<id property="id" column="ID" />
+		<result property="zylxIds" column="ZYLX_IDS" />
+		<result property="yhid" column="YHID" />
+		<result property="xxid" column="XXID" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schPhsd" resultMap="PhsdResult">
+		SELECT * FROM jxzy_phsd AS t where true
+		<if test="zylxIds!=null and zylxIds !=''"> AND zylxIds like #{zylxIds}</if>
+		<if test="yhid!=null and yhid !=''"> AND yhid = #{yhid}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid = #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schPhsdById" parameterType="int" resultMap="PhsdResult">
+		SELECT *
+		FROM jxzy_phsd AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addPhsd" parameterType="com.qtrmoon.zygl.pojo.Phsd"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_phsd(ID,ZYLX_IDS,YHID,XXID)
+		VALUES(#{id},#{zylxIds},#{yhid},#{xxid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updPhsd" parameterType="com.qtrmoon.zygl.pojo.Phsd">
+		UPDATE jxzy_phsd SET
+		ID=#{id},ZYLX_IDS=#{zylxIds},YHID=#{yhid},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 根据用户id修改 -->
+	<update id="updPhsdByUser" parameterType="com.qtrmoon.zygl.pojo.Phsd">
+		UPDATE jxzy_phsd SET
+		ZYLX_IDS=#{zylxIds}
+		WHERE YHID=#{yhid}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delPhsd" parameterType="int">
+		DELETE FROM jxzy_phsd
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delPhsds">
+		DELETE FROM jxzy_phsd
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+	
+	<!-- 用户ID查询 -->
+	<select id="schPhsdByUserId" parameterType="int" resultMap="PhsdResult">
+		SELECT *
+		FROM jxzy_phsd AS t WHERE
+		YHID=#{userId}
+	</select>
+</mapper>

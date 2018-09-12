@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 性别 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>男</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>女</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>未说明的性别</label>
+	</col>
+	<col>
+		<id>0</id>
+		<pid></pid>
+		<label>未知的性别</label>
+	</col>
+</dictionary>

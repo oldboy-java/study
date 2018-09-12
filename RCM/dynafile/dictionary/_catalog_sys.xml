@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogTables>
+	<description>系统管理字典组</description>
+	<table>
+		<id>SYS_ORGAN</id>
+		<tablename>SYS_ORGAN</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid>PID</pid>
+			<label>NAME</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>SYS_ROLE</id>
+		<tablename>SYS_ROLE</tablename>
+		<tabledesc>角色</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>NAME</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_JZGXM</id>
+		<tablename>com_jzgxx</tablename>
+		<tabledesc>工号</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>GH</id>
+			<pid></pid>
+			<label>GH</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_GHCHECKJZGXM</id>
+		<tablename>com_jzgxx</tablename>
+		<tabledesc>根据ID查询姓名</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>GH</id>
+			<pid></pid>
+			<label>XM</label>
+		</mapping>
+	</table>
+	
+		<table>
+		<id>ZD_GHCHECKDWH</id>
+		<tablename>com_jzgxx</tablename>
+		<tabledesc>根据ID查询对应单位</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>GH</id>
+			<pid></pid>
+			<label>DWH</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>SYS_ORGAN_NATURE</id>
+		<tablename>sys_organNature.xml</tablename>
+		<tabledesc>机构性质</tabledesc>
+		<style>L#X#N</style>
+		<pattern>2</pattern>
+	</table>
+	
+	<table>
+		<id>SYS_FUNCS_MENU</id>
+		<tablename>SYS_FUNCTION</tablename>
+		<tabledesc>功能菜单树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid>PID</pid>
+			<label>NAME</label>
+		</mapping>
+		<sql> and isshow>0</sql>
+	</table>
+	<table>
+		<id>SYS_FUNCS_ALL</id>
+		<tablename>SYS_FUNCTION</tablename>
+		<tabledesc>功能菜单树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid>PID</pid>
+			<label>NAME</label>
+		</mapping>
+	</table>
+	<table>
+		<id>SYS_FUNC_TYPE</id>
+		<tablename>sys_funcType.xml</tablename>
+		<tabledesc>功能类别</tabledesc>
+		<style>L#X#N</style>
+		<pattern>2</pattern>
+	</table>
+	
+</catalogTables>

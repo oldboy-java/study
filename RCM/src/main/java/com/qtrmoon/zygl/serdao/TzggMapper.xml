@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.TzggMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Tzgg" id="TzggResult">
+		<id property="id" column="ID" />
+		<result property="tzbt" column="TZBT" />
+		<result property="tznr" column="TZNR" />
+		<result property="cjsj" column="CJSJ" />
+		<result property="xxid" column="XXID" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schTzgg" resultMap="TzggResult">
+		SELECT * FROM jxzy_tzgg AS t where true
+		<if test="tzbt!=null and tzbt !=''"> AND tzbt like #{tzbt}</if>
+		<if test="tznr!=null and tznr !=''"> AND tznr like #{tznr}</if>
+		<if test="cjsjBeg!=null and cjsjBeg!=''"> AND cjsj &gt;= #{cjsjBegDate}</if>
+		<if test="cjsjEnd!=null and cjsjEnd!=''"> AND cjsj &lt;= #{cjsjEndDate}</if>
+		<if test="xxid!=null and xxid !=''"> AND xxid like #{xxid}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schTzggById" parameterType="int" resultMap="TzggResult">
+		SELECT *
+		FROM jxzy_tzgg AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schNewTzgg"  resultMap="TzggResult">
+		SELECT * from jxzy_tzgg t ORDER BY t.CJSJ DESC
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addTzgg" parameterType="com.qtrmoon.zygl.pojo.Tzgg"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_tzgg(ID,TZBT,TZNR,CJSJ,XXID)
+		VALUES(#{id},#{tzbt},#{tznr},#{cjsj},#{xxid})
+	</insert>
+	
+	<!-- 增加 -->
+	<insert id="addBackTzgg" parameterType="com.qtrmoon.zygl.pojo.Tzgg"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_tzgg(ID,TZBT,TZNR,CJSJ)
+		VALUES(#{id},#{tzbt},#{tznr},#{cjsj})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updTzgg" parameterType="com.qtrmoon.zygl.pojo.Tzgg">
+		UPDATE jxzy_tzgg SET
+		ID=#{id},TZBT=#{tzbt},TZNR=#{tznr},CJSJ=#{cjsj},XXID=#{xxid}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 修改 -->
+	<update id="updBackTzgg" parameterType="com.qtrmoon.zygl.pojo.Tzgg">
+		UPDATE jxzy_tzgg SET
+		ID=#{id},TZBT=#{tzbt},TZNR=#{tznr}
+		WHERE ID=#{id}
+	</update>
+	
+	<!-- 单记录主键删除 -->
+	<delete id="delTzgg" parameterType="int">
+		DELETE FROM jxzy_tzgg
+		WHERE ID=#{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="delTzggs">
+		DELETE FROM jxzy_tzgg
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

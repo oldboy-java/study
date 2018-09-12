@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 健康状况 -->
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>健康或良好</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>一般或较弱</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>有慢性病</label>
+	</col>
+	<col>
+		<id>6</id>
+		<pid></pid>
+		<label>残疾</label>
+	</col>
+</dictionary>

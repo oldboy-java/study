@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogTables>
+	<description>资源管理字典组</description>
+    <table>
+		<id>ZD_XKLB</id>
+		<tablename>JXZY_XKLB</tablename>
+		<tabledesc>学科类别</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>XKMC</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_ZYMC</id>
+		<tablename>JXZY_ZY</tablename>
+		<tabledesc>资源名称</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>ZYMC</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_USERNAME</id>
+		<tablename>sys_user</tablename>
+		<tabledesc>上传人</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>USERNAME</label>
+		</mapping>
+		<sql> and id!=1</sql>
+	</table>
+	
+	<table>
+		<id>ZD_SCRNAME</id>
+		<tablename>scrxm_view</tablename>
+		<tabledesc>上传人姓名</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>USERNAME</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_ZYZT</id>
+		<tablename>ZD_ZYZT</tablename>
+		<tabledesc>资源状态</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>LABEL</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_SHZT</id>
+		<tablename>ZD_SHZT</tablename>
+		<tabledesc>审核状态</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>LABEL</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_SFGX</id>
+		<tablename>ZD_SFGX</tablename>
+		<tabledesc>是否共享</tabledesc>
+		<root></root>
+		<style>T#D#N</style>
+		<pattern>2</pattern>
+	</table>
+	
+	<table>
+		<id>ZD_PLLX</id>
+		<tablename>ZD_PLLX</tablename>
+		<tabledesc>资源评论类型</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>ID</id>
+			<pid></pid>
+			<label>LABEL</label>
+		</mapping>
+	</table>
+	
+	<table>
+		<id>ZD_ZYGS</id>
+		<tablename>ZD_ZYGS</tablename>
+		<tabledesc>资源格式</tabledesc>
+		<root></root>
+		<style>L#D#N</style>
+		<pattern>2</pattern>
+		<mode>0</mode>
+		<mapping>
+			<id>LABEL</id>
+			<pid></pid>
+			<label>LABEL</label>
+		</mapping>
+	</table>
+</catalogTables>

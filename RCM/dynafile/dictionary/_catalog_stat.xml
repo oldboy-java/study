@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogTables>
+	<description>字典组</description>
+	<!--资源数量统计表头  -->
+	<table>
+		<id>JIAOZHIGONGZIYUANTONGJI_JZGZYTJ</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='JZGZYTJ'</sql>
+		<expand>exp1</expand>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306labssm_ZY</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='ZY'</sql>
+	</table>
+	
+	<table>
+		<id>jdbcmysql1270013306labssm_BJ</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='BJ'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_YX</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='YX'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_NL</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='NL'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_BJ</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='BJXX'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_GW</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='GW'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_SZBJ</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='SZBJ'</sql>
+	</table>
+	<table>
+		<id>jdbcmysql1270013306qyzp_XB</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='XB'</sql>
+	</table>
+	
+	<table>
+		<id>jdbcmysql1270013306jxzy_ZYMC</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='ZYMC'</sql>
+	</table>
+	
+	<table>
+		<id>jdbcmysql1270013306jxzy_LX</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='LX'</sql>
+	</table>
+	
+	<table>
+		<id>jdbcmysql1270013306jxzy_SHZT</id>
+		<tablename>BRG_DICT</tablename>
+		<tabledesc>组织机构树</tabledesc>
+		<root></root>
+		<style>T#D#A</style>
+		<pattern>2</pattern>
+		<sql> and dict='SHZT'</sql>
+	</table>
+</catalogTables>

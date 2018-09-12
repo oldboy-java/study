@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.sysmanage.serdao.RoleMapper">
+	<resultMap type="com.qtrmoon.sysmanage.pojo.Role" id="RoleResult">
+		<id property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="islocal" column="ISLOCAL" />
+		<result property="info" column="INFO" />
+		<result property="ord" column="ORD" />
+		<result property="classify" column="CLASSIFY" />
+		<result property="organid" column="ORGANID" />
+		<result property="modulename" column="MODULENAME" />
+		<result property="funcs" column="FUNCS" />
+	</resultMap>
+	<select id="schRole" resultMap="RoleResult">
+		SELECT * FROM sys_role AS t where true
+		<if test="name!=null and name !=''"> AND name = #{name}</if>
+		<if test="islocal!=null and islocal !=''"> AND islocal = #{islocal}</if>
+		<if test="info!=null and info !=''"> AND info = #{info}</if>
+		<if test="ord!=null and ord !=''"> AND ord = #{ord}</if>
+		<if test="classify!=null and classify !=''"> AND classify = #{classify}</if>
+		<if test="organid!=null and organid !=''"> AND organid = #{organid}</if>
+		<if test="modulename!=null and modulename !=''"> AND modulename = #{modulename}</if>
+		<if test="funcs!=null and funcs !=''"> AND funcs = #{funcs}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	<select id="schRoleById" parameterType="int" resultMap="RoleResult">
+		SELECT *
+		FROM sys_role AS t WHERE
+		ID=#{id}
+	</select>
+	<insert id="addRole" parameterType="com.qtrmoon.sysmanage.pojo.Role">
+		INSERT INTO
+		sys_role(ID,NAME,ISLOCAL,INFO,ORD,CLASSIFY,ORGANID,MODULENAME,FUNCS)
+		VALUES(#{id},#{name},#{islocal},#{info},#{ord},#{classify},#{organid},#{modulename},#{funcs})
+	</insert>
+	<update id="updRole" parameterType="com.qtrmoon.sysmanage.pojo.Role">
+		UPDATE sys_role SET
+		ID=#{id},NAME=#{name},ISLOCAL=#{islocal},INFO=#{info},ORD=#{ord},CLASSIFY=#{classify},ORGANID=#{organid},MODULENAME=#{modulename},FUNCS=#{funcs}
+		WHERE ID=#{id}
+	</update>
+	<delete id="delRole" parameterType="int">
+		DELETE FROM sys_role
+		WHERE ID=#{id}
+	</delete>
+	<delete id="delRoles">
+		DELETE FROM sys_role
+		<if test="array != null">
+			<where>
+			ID IN
+			<foreach item="id" collection="array" open="(" separator="," close=")"> #{id} </foreach>
+			</where>
+		</if>
+	</delete>
+</mapper>

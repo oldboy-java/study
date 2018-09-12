@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtrmoon.zygl.serdao.WzszMapper">
+	<!-- 字段映射 -->
+	<resultMap type="com.qtrmoon.zygl.pojo.Wzsz" id="WzszResult">
+		<id property="id" column="ID" />
+		<result property="mb" column="MB" />
+	</resultMap>
+	
+	<!-- 条件查询 -->
+	<select id="schWzsz" resultMap="WzszResult">
+		SELECT * FROM jxzy_wzsz AS t where true
+		<if test="mb!=null and mb !=''"> AND mb = #{mb}</if>
+		<if test="condition!=null and condition!=''">${condition}</if>
+		<if test="orderCol!=null and orderCol!=''"> order by ${orderCol}</if>
+	</select>
+	
+	<!-- 主键查询 -->
+	<select id="schWzszById" parameterType="int" resultMap="WzszResult">
+		SELECT *
+		FROM jxzy_wzsz AS t WHERE
+		ID=#{id}
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addWzsz" parameterType="com.qtrmoon.zygl.pojo.Wzsz"  keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		jxzy_wzsz(ID,MB)
+		VALUES(#{id},#{mb})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updWzsz" parameterType="com.qtrmoon.zygl.pojo.Wzsz">
+		UPDATE jxzy_wzsz SET
+		ID=#{id},MB=#{mb}
+		WHERE ID=#{id}
+	</update>
+	
+</mapper>

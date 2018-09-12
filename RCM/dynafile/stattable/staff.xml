@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+  <statid>staff</statid>
+  <statinfo>教职工资源统计</statinfo>
+  <stattype>sql</stattype>
+  <enrolTable>JXZY_ZY</enrolTable>
+  <enrolClassify></enrolClassify>
+  <enrolClassifyDict>JIAOZHIGONGZIYUANTONGJI_JZGZYTJ</enrolClassifyDict>
+  <enrolClassifyDictConfig></enrolClassifyDictConfig>
+  <enrolCollect>SCRID</enrolCollect>
+  <enrolCollectInfo>姓名</enrolCollectInfo>
+  <enrolCollectDict>ZD_SCRNAME</enrolCollectDict>
+  <enrolCollectDictConfig></enrolCollectDictConfig>
+  <caculate>count</caculate>
+  <enrolSumCol></enrolSumCol>
+  <sql></sql>
+  <hasBigSum>true</hasBigSum>
+</xml-body>

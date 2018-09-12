@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-body>
+  <statid>resourcedownload</statid>
+  <statinfo>资源下载统计</statinfo>
+  <stattype>dict</stattype>
+  <enrolTable>JXZY_ZYXZ</enrolTable>
+  <enrolClassify></enrolClassify>
+  <enrolClassifyDict></enrolClassifyDict>
+  <enrolClassifyDictConfig></enrolClassifyDictConfig>
+  <enrolCollect>ZYID</enrolCollect>
+  <enrolCollectInfo>资源名称</enrolCollectInfo>
+  <enrolCollectDict>ZD_ZYMC</enrolCollectDict>
+  <enrolCollectDictConfig></enrolCollectDictConfig>
+  <caculate>count</caculate>
+  <enrolSumCol></enrolSumCol>
+  <sql>select ZIYUANMINGCHENG as collect,XZCS as classify,count(1) as amount from download group by ZIYUANMINGCHENG,XZCS</sql>
+  <hasBigSum>true</hasBigSum>
+</xml-body>

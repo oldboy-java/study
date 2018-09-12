@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+	<col>
+		<id>1</id>
+		<pid></pid>
+		<label>小一班</label>
+	</col>
+	<col>
+		<id>2</id>
+		<pid></pid>
+		<label>小二班</label>
+	</col>
+	<col>
+		<id>3</id>
+		<pid></pid>
+		<label>中一班</label>
+	</col>
+	<col>
+		<id>4</id>
+		<pid></pid>
+		<label>中二班</label>
+	</col>
+	<col>
+		<id>5</id>
+		<pid></pid>
+		<label>大二班</label>
+	</col>
+</dictionary>
