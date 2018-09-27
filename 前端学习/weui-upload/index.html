@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>weui上传</title>
+    <link rel="stylesheet" href="weui.min.css">
+    <script src="weui.min.js"></script>
+    <script src="jquery.js"></script>
+    <style>
+        html, body{
+            height: 100%;
+            background-color: #f8f8f8;
+        }
+        body{
+            font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body ontouchstart>
+
+            <p class="weui-cells__title">图片自动上传</p>
+            <div class="weui-cells weui-cells_form" id="uploader">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader">
+                            <div class="weui-uploader__hd">
+                                <p class="weui-uploader__title">图片上传</p>
+                                <div class="weui-uploader__info"><span id="uploadCount">0</span>/5</div>
+                            </div>
+                            <div class="weui-uploader__bd">
+                                <ul class="weui-uploader__files" id="uploaderFiles"></ul>
+                                <div class="weui-uploader__input-box"><!--capture="camera"--> 
+                                    <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*"  multiple="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="gztp" name="gztp">
+
+
+
+</body>
+<script>
+
+    /* 图片自动上传 */
+    var uploadCount = 0, uploadList = [];
+    var uploadCountDom = document.getElementById("uploadCount");
+    weui.uploader('#uploader', {
+        url: 'http://192.168.6.225:9038/fbs/file/upload.action',
+        auto: true,
+        type: 'file',
+        fileVal: 'cpImg',
+        compress: {
+            width: 1600,
+            height: 1600,
+            quality: .8
+        },
+        onBeforeQueued: function(files) {
+            if(["image/jpg", "image/jpeg", "image/png", "image/gif"].indexOf(this.type) < 0){
+                weui.alert('请上传图片');
+                return false;
+            }
+            if(this.size > 10 * 1024 * 1024){
+                weui.alert('请上传不超过10M的图片');
+                return false;
+            }
+            if (files.length > 5) { // 防止一下子选中过多文件
+                weui.alert('最多只能上传5张图片，请重新选择');
+                return false;
+            }
+            if (uploadCount + 1 > 5) {
+                weui.alert('最多只能上传5张图片');
+                return false;
+            }
+
+            ++uploadCount;
+            uploadCountDom.innerHTML = uploadCount;
+        },
+        onQueued: function(){
+            uploadList.push(this);
+          //  console.log(this);
+        },
+        onBeforeSend: function(data, headers){
+           // console.log(this, data, headers);
+            // $.extend(data, { test: 1 }); // 可以扩展此对象来控制上传参数
+            // $.extend(headers, { Origin: 'http://127.0.0.1' }); // 可以扩展此对象来控制上传头部
+
+            // return false; // 阻止文件上传
+        },
+        onProgress: function(procent){
+           // console.log(this, procent);
+        },
+        onSuccess: function (ret) {
+            //console.log(this, ret);
+            //设置保修故障图片
+            var tt = $('#gztp').val();
+            if(tt==''){
+                $('#gztp').val(ret.filePath);
+            }else {
+                $('#gztp').val($('#gztp').val()+','+ret.filePath);
+            }
+
+        },
+        onError: function(err){
+           // console.log(this, err);
+
+        }
+    });
+
+    // 缩略图预览
+    document.querySelector('#uploaderFiles').addEventListener('click', function(e){
+        var target = e.target;
+
+        while(!target.classList.contains('weui-uploader__file') && target){
+            target = target.parentNode;
+        }
+        if(!target) return;
+
+        var url = target.getAttribute('style') || '';
+        var id = target.getAttribute('data-id');
+
+        if(url){
+            url = url.match(/url\((.*?)\)/)[1].replace(/"/g, '');
+        }
+        var gallery = weui.gallery(url, {
+            className: 'custom-name',
+            onDelete: function(){
+                weui.confirm('确定删除该图片？', function(){
+                    --uploadCount;
+                    uploadCountDom.innerHTML = uploadCount;
+
+
+                    for (var i = 0, len = uploadList.length; i < len; ++i) {
+                        var file = uploadList[i];
+                        if(file.id == id){
+                            file.stop();
+                            break;
+                        }
+                    }
+                    var mm = new Array();
+                    var gztp = $('#gztp').val();
+                    var gztps = gztp.split(',');
+                    for(var i = 0; i < gztps.length;i++){
+                        if(id != i+1){
+                            mm.push(gztps[i]);
+                        }
+                    }
+                    $('#gztp').val(mm.join(',').substr(0,mm.join(',').length));
+                    target.remove();
+                    gallery.hide();
+                });
+            }
+        });
+    });
+
+</script>
+</html>
