@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tk.redpacket.mapper.UserRedPacketMapper">
-	<!-- 字段映射 -->
-	<resultMap type="com.tk.redpacket.pojo.UserRedPacket" id="UserRedPacketResult">
-		<id property="id" column="ID" />
-		<result property="redPacketId" column="RED_PACKET_ID" />
-		<result property="userId" column="USER_ID" />
-		<result property="amount" column="AMOUNT" />
-		<result property="grabTime" column="GRAB_TIME" />
-		<result property="note" column="NOTE" />
-	</resultMap>
+    <!-- 字段映射 -->
+    <resultMap type="com.tk.redpacket.pojo.UserRedPacket" id="UserRedPacketResult">
+        <id property="id" column="ID"/>
+        <result property="redPacketId" column="RED_PACKET_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="grabTime" column="GRAB_TIME"/>
+        <result property="note" column="NOTE"/>
+    </resultMap>
 
-	
-	<!-- 主键查询 -->
-	<select id="schUserRedPacketById" parameterType="int" resultMap="UserRedPacketResult">
-		SELECT *
-		FROM t_user_red_packet AS t WHERE
-		ID=#{id}
-	</select>
-	
-	<!-- 增加 -->
-	<insert id="addUserRedPacket" parameterType="com.tk.redpacket.pojo.UserRedPacket"  keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO
-		t_user_red_packet(ID,RED_PACKET_ID,USER_ID,AMOUNT,GRAB_TIME,NOTE)
-		VALUES(#{id},#{redPacketId},#{userId},#{amount},#{grabTime},#{note})
-	</insert>
+
+    <!-- 主键查询 -->
+    <select id="schUserRedPacketById" parameterType="int" resultMap="UserRedPacketResult">
+        SELECT *
+        FROM t_user_red_packet AS t WHERE
+        ID=#{id}
+    </select>
+
+    <!-- 增加 -->
+    <insert id="addUserRedPacket" parameterType="com.tk.redpacket.pojo.UserRedPacket" keyProperty="id"
+            useGeneratedKeys="true">
+        INSERT INTO
+        t_user_red_packet(ID,RED_PACKET_ID,USER_ID,AMOUNT,GRAB_TIME,NOTE)
+        VALUES(#{id},#{redPacketId},#{userId},#{amount},#{grabTime},#{note})
+    </insert>
 </mapper>
