@@ -12,11 +12,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     /**
      * SpringIoc环境配置
+     *
      * @return
      */
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{ RootConfig.class };
+        return new Class<?>[]{RootConfig.class};
     }
 
     /***
@@ -25,7 +26,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] {WebConfig.class};
+        return new Class<?>[]{WebConfig.class};
     }
 
     /***
