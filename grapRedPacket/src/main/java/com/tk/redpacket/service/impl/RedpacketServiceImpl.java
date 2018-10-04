@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +70,7 @@ public class RedpacketServiceImpl implements IRedpacketService {
     @Override
     @Async
     public void saveUserRedPacket2Db(Integer redPacketId, BigDecimal unitAmount) {
-        log.debug("红包ID=【%d】,抢红包金额=【%d】",redPacketId,unitAmount);
+        log.debug("红包ID=【{}】,抢红包金额=【{}】",redPacketId,unitAmount);
         Long start = System.currentTimeMillis();
 
         //获取抢红包列表
