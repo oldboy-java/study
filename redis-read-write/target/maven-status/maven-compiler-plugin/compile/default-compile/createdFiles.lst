@@ -1,0 +1,7 @@
+com\tk\redis\DynamicJedisPoolHolder.class
+com\tk\redis\AppConfig.class
+com\tk\redis\TxMain.class
+com\tk\redis\config\RedisConfig.class
+com\tk\redis\annotation\JedisPoolType.class
+com\tk\redis\utils\JedisUtils.class
+com\tk\redis\aspect\JedisPoolAspect.class
